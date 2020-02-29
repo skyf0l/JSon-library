@@ -62,6 +62,7 @@ json_element_t *json_element_create_string(char *key, char *value);
 void *json_element_destroy(json_element_t *je);
 
 // json_to_string
+char *json_key_to_string(char *key);
 char *json_array_to_string(json_array_t *ja);
 char *json_object_to_string(json_object_t *jo);
 int json_to_string_append(char **str, char *to_add);
