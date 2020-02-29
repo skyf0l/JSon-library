@@ -58,9 +58,9 @@ char *json_element_to_string(json_element_t *je)
 
     if (!je)
         return (NULL);
-    if (!(str = json_key_to_string(je->key)))
+    if (je->key && !(str = json_key_to_string(je->key)))
         return (NULL);
-    if (json_to_string_append(&str, ":"))
+    if (je->key && json_to_string_append(&str, ":"))
         return (NULL);
     if (je->type == j_null)
         if (json_to_string_append(&str, "null"))

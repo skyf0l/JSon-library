@@ -8,11 +8,36 @@
 #include <criterion/criterion.h>
 #include "json.h"
 
+Test(json_element_to_string, j_null_null_key)
+{
+    char *key = NULL;
+    char *expected = "null";
+    json_element_t *je = json_element_create(key);
+    char *to_string = json_element_to_string(je);
+
+    cr_assert_str_eq(to_string, expected);
+    json_element_destroy(je);
+    free(to_string);
+}
+
 Test(json_element_to_string, j_null)
 {
     char *key = "key";
     char *expected = "\"key\":null";
     json_element_t *je = json_element_create(key);
+    char *to_string = json_element_to_string(je);
+
+    cr_assert_str_eq(to_string, expected);
+    json_element_destroy(je);
+    free(to_string);
+}
+
+Test(json_element_to_string, j_bool_null_key)
+{
+    char *key = NULL;
+    int value = 0;
+    char *expected = "false";
+    json_element_t *je = json_element_create_bool(key, value);
     char *to_string = json_element_to_string(je);
 
     cr_assert_str_eq(to_string, expected);
@@ -85,6 +110,19 @@ Test(json_element_to_string, j_int_2)
     free(to_string);
 }
 
+Test(json_element_to_string, j_int_3_key_null)
+{
+    char *key = NULL;
+    int value = 2147483647;
+    char *expected = "2147483647";
+    json_element_t *je = json_element_create_int(key, value);
+    char *to_string = json_element_to_string(je);
+
+    cr_assert_str_eq(to_string, expected);
+    json_element_destroy(je);
+    free(to_string);
+}
+
 Test(json_element_to_string, j_int_3)
 {
     char *key = "key";
@@ -129,6 +167,19 @@ Test(json_element_to_string, j_string)
     char *key = "key";
     char *value = "a random string";
     char *expected = "\"key\":\"a random string\"";
+    json_element_t *je = json_element_create_string(key, value);
+    char *to_string = json_element_to_string(je);
+
+    cr_assert_str_eq(to_string, expected);
+    json_element_destroy(je);
+    free(to_string);
+}
+
+Test(json_element_to_string, j_string_quotes_key_null)
+{
+    char *key = NULL;
+    char *value = "a \"random\nstring\"";
+    char *expected = "\"a \\\"random\\nstring\\\"\"";
     json_element_t *je = json_element_create_string(key, value);
     char *to_string = json_element_to_string(je);
 
