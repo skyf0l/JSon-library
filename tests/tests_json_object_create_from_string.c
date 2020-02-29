@@ -22,6 +22,7 @@ Test(json_object_create_from_string, just_create)
     json_object_t *jo = json_object_create_from_string(str);
 
     cr_assert_not_null(jo);
-    cr_assert_eq(jo->objects_count, 0);
+    cr_assert_eq(jo->elements_count, 0);
+    cr_assert_not_null(jo->elements);
     json_object_destroy(jo);
 }

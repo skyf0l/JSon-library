@@ -7,6 +7,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include "list.h"
 #include "json.h"
 
 json_object_t *json_object_create(void)
@@ -15,6 +16,9 @@ json_object_t *json_object_create(void)
 
     if (!jo)
         return (NULL);
-    jo->objects_count = 0;
+    jo->elements_count = 0;
+    jo->elements = list_create(NULL);
+    if (!jo->elements)
+        return (json_object_destroy(jo));
     return (jo);
 }

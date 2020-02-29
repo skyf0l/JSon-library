@@ -13,6 +13,7 @@
 // const
 
 // def
+typedef struct list_s list_t;
 typedef struct json_array_s json_array_t;
 typedef struct json_object_s json_object_t;
 typedef union json_parser_s json_parser_t;
@@ -23,11 +24,13 @@ enum json_type {j_array, j_object, j_int, j_string};
 // struct
 struct json_array_s
 {
-    int objects_count;
+    int elements_count;
+    list_t *elements;
 };
 struct json_object_s
 {
-    int objects_count;
+    int elements_count;
+    list_t *elements;
 };
 union json_element_s
 {
