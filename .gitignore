@@ -1,0 +1,10 @@
+# compilation
+*.o
+*.a
+/include/*/*.h
+*.log
+
+# tests
+/unit_tests
+*.gcda
+*.gcno
