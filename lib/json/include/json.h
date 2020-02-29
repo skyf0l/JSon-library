@@ -22,7 +22,8 @@ struct json_object_s
 ///////////////////// PROTOTYPE /////////////////////
 
 // json_object
-json_object_t *json_object_create();
+json_object_t *json_object_create(void);
+json_object_t *json_object_create_from_string(char *str);
 void *json_object_destroy(json_object_t *jo);
 
 #endif /* !JSON_H_ */

@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "json.h"
 
-json_object_t *json_object_create()
+json_object_t *json_object_create(void)
 {
     json_object_t *jo = malloc(sizeof(json_object_t));
 

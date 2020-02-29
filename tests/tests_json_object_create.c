@@ -8,7 +8,7 @@
 #include <criterion/criterion.h>
 #include "json.h"
 
-Test(json_create, name)
+Test(json_object_create, just_create)
 {
     json_object_t *jo = json_object_create();
 
