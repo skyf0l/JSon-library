@@ -56,6 +56,9 @@ void *json_object_destroy(json_object_t *jo);
 
 // json_element
 json_element_t *json_element_create(char *key);
+json_element_t *json_element_create_bool(char *key, int value);
+json_element_t *json_element_create_int(char *key, int value);
+json_element_t *json_element_create_string(char *key, char *value);
 void *json_element_destroy(json_element_t *je);
 
 // json_to_string
