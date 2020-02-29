@@ -15,5 +15,6 @@ json_object_t *json_object_create(void)
 
     if (!jo)
         return (NULL);
+    jo->objects_count = 0;
     return (jo);
 }

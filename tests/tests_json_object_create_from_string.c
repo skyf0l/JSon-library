@@ -16,11 +16,12 @@ Test(json_object_create_from_string, null)
     cr_assert_null(jo);
 }
 
-Test(json_object_create_from_string, empty)
+Test(json_object_create_from_string, just_create)
 {
     char *str = "{}";
     json_object_t *jo = json_object_create_from_string(str);
 
     cr_assert_not_null(jo);
+    cr_assert_eq(jo->objects_count, 0);
     json_object_destroy(jo);
 }
