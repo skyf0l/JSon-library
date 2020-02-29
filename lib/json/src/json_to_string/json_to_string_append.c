@@ -8,13 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-size_t j_strlen(char *str)
-{
-    size_t len = 0;
-
-    for (; str && str[len]; len++);
-    return (len);
-}
+size_t j_strlen(char const *str);
 
 int json_to_string_append(char **str, char *to_add)
 {

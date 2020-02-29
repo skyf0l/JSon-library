@@ -16,7 +16,7 @@
 typedef struct list_s list_t;
 typedef struct json_array_s json_array_t;
 typedef struct json_object_s json_object_t;
-typedef union json_parser_s json_parser_t;
+typedef struct json_element_s json_element_t;
 
 // enum
 enum json_type {j_null, j_array, j_object, j_bool, j_int, j_string};
@@ -32,11 +32,12 @@ struct json_object_s
     int elements_count;
     list_t *elements;
 };
-union json_element_s
+struct json_element_s
 {
     enum json_type type;
-    struct json_array_s json_array;
-    struct json_object_s json_object;
+    char *key;
+    json_array_t *json_array;
+    json_object_t *json_object;
     int json_int;
     char *json_string;
 };
@@ -53,9 +54,17 @@ json_object_t *json_object_create(void);
 json_object_t *json_object_create_from_string(char *str);
 void *json_object_destroy(json_object_t *jo);
 
+// json_element
+json_element_t *json_element_create(char *key);
+void *json_element_destroy(json_element_t *je);
+
 // json_to_string
 char *json_array_to_string(json_array_t *ja);
 char *json_object_to_string(json_object_t *jo);
 int json_to_string_append(char **str, char *to_add);
+
+// j_str
+size_t j_strlen(char const *str);
+char *j_strclone(char const *str);
 
 #endif /* !JSON_H_ */
