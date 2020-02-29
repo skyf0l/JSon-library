@@ -19,7 +19,7 @@ typedef struct json_object_s json_object_t;
 typedef union json_parser_s json_parser_t;
 
 // enum
-enum json_type {j_array, j_object, j_int, j_string};
+enum json_type {j_null, j_array, j_object, j_bool, j_int, j_string};
 
 // struct
 struct json_array_s
@@ -52,5 +52,10 @@ void *json_array_destroy(json_array_t *ja);
 json_object_t *json_object_create(void);
 json_object_t *json_object_create_from_string(char *str);
 void *json_object_destroy(json_object_t *jo);
+
+// json_to_string
+char *json_array_to_string(json_array_t *ja);
+char *json_object_to_string(json_object_t *jo);
+int json_to_string_append(char **str, char *to_add);
 
 #endif /* !JSON_H_ */
