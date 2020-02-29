@@ -62,13 +62,21 @@ json_element_t *json_element_create_string(char *key, char *value);
 void *json_element_destroy(json_element_t *je);
 
 // json_to_string
-char *json_key_to_string(char *key);
 char *json_array_to_string(json_array_t *ja);
 char *json_object_to_string(json_object_t *jo);
+char *json_element_to_string(json_element_t *je);
+char *json_key_to_string(char *key);
 int json_to_string_append(char **str, char *to_add);
+
+// json_string
+char *get_string_from_json_format(char *str);
+char *get_string_to_json_format(char *str);
 
 // j_str
 size_t j_strlen(char const *str);
 char *j_strclone(char const *str);
+int j_strcmp(char const *s1, char const *s2);
+char *j_itoa(int n);
+char *j_strrev(char *str);
 
 #endif /* !JSON_H_ */
