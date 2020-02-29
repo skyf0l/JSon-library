@@ -12,7 +12,14 @@ Test(json_element_create, null)
 {
     json_element_t *je = json_element_create(NULL);
 
-    cr_assert_null(je);
+    cr_assert_not_null(je);
+    cr_assert_eq(je->type, j_null);
+    cr_assert_null(je->key);
+    cr_assert_null(je->json_array);
+    cr_assert_null(je->json_object);
+    cr_assert_eq(je->json_int, 0);
+    cr_assert_null(je->json_string);
+    json_element_destroy(je);
 }
 
 Test(json_element_create, j_null)

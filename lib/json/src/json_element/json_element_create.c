@@ -13,16 +13,19 @@ json_element_t *json_element_create(char *key)
 {
     json_element_t *je;
 
-    if (!key)
-        return (NULL);
     je = malloc(sizeof(json_element_t));
     if (!je)
         return (NULL);
     je->type = j_null;
-    je->key = j_strclone(key);
+    je->key = NULL;
     je->json_array = NULL;
     je->json_object = NULL;
     je->json_int = 0;
     je->json_string = NULL;
+    if (key) {
+        je->key = j_strclone(key);
+        if (!je->key)
+            return (json_element_destroy(je));
+    }
     return (je);
 }
