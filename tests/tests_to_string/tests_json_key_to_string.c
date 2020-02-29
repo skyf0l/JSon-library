@@ -33,3 +33,12 @@ Test(json_key_to_string, basic)
     cr_assert_str_eq(key_to_string, "\"a random key\"");
     free(key_to_string);
 }
+
+Test(json_key_to_string, escape_key)
+{
+    char *key = "\b\f\n\r\t\"\\";
+    char *key_to_string = json_key_to_string(key);
+
+    cr_assert_str_eq(key_to_string, "\"\\b\\f\\n\\r\\t\\\"\\\\\"");
+    free(key_to_string);
+}

@@ -11,6 +11,8 @@
 //////////////////////// VAR ////////////////////////
 
 // const
+static char const ESCAPE_CHARS[8] = "\b\f\n\r\t\"\\";
+static char const UNESCAPE_CHARS[8] = "bfnrt\"\\";
 
 // def
 typedef struct list_s list_t;
@@ -69,6 +71,11 @@ char *json_key_to_string(char *key);
 int json_to_string_append(char **str, char *to_add);
 
 // json_string
+char js_to_escape_char(char c);
+char js_to_unescape_char(char c);
+int js_is_unescape_char(char c);
+int js_is_escape_char(char c);
+int js_count_special_chars(char *str);
 char *get_string_from_json_format(char *str);
 char *get_string_to_json_format(char *str);
 

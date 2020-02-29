@@ -12,13 +12,22 @@
 char *je_parse_string(char *str)
 {
     char *parsed = NULL;
-    char *tmp;
+    char *tmp = get_string_to_json_format(str);
 
-    if (json_to_string_append(&parsed, str))
+    if (!tmp)
         return (NULL);
-    tmp = json_key_to_string(parsed);
-    free(parsed);
-    return (tmp);
+    if (json_to_string_append(&parsed, "\"")) {
+        free(tmp);
+        return (NULL);
+    }
+    if (json_to_string_append(&parsed, tmp)) {
+        free(tmp);
+        return (NULL);
+    }
+    free(tmp);
+    if (json_to_string_append(&parsed, "\""))
+        return (NULL);
+    return (parsed);
 }
 
 char *je_to_string(json_element_t *je, char *str)

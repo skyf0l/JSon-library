@@ -140,8 +140,21 @@ Test(json_element_to_string, j_string)
 Test(json_element_to_string, j_string_quotes)
 {
     char *key = "key";
-    char *value = "a \"random' string\"";
-    char *expected = "\"key\":\"a \\\"random' string\\\"\"";
+    char *value = "a \"random\nstring\"";
+    char *expected = "\"key\":\"a \\\"random\\nstring\\\"\"";
+    json_element_t *je = json_element_create_string(key, value);
+    char *to_string = json_element_to_string(je);
+
+    cr_assert_str_eq(to_string, expected);
+    json_element_destroy(je);
+    free(to_string);
+}
+
+Test(json_element_to_string, j_string_all_escape_char)
+{
+    char *key = "\b\f\n\r\t\"\\";
+    char *value = "\b\f\n\r\t\"\\";
+    char *expected = "\"\\b\\f\\n\\r\\t\\\"\\\\\":\"\\b\\f\\n\\r\\t\\\"\\\\\"";
     json_element_t *je = json_element_create_string(key, value);
     char *to_string = json_element_to_string(je);
 
