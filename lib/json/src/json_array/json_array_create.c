@@ -17,7 +17,7 @@ json_array_t *json_array_create(void)
     if (!ja)
         return (NULL);
     ja->elements_count = 0;
-    ja->elements = list_create(NULL);
+    ja->elements = list_create((void (*)(void *))&json_element_destroy_no_rtn);
     if (!ja->elements)
         return (json_array_destroy(ja));
     return (ja);

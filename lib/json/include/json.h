@@ -54,7 +54,22 @@ void *json_array_destroy(json_array_t *ja);
 // json_object
 json_object_t *json_object_create(void);
 json_object_t *json_object_create_from_string(char *str);
+int json_object_remove(json_object_t *jo, char *key);
 void *json_object_destroy(json_object_t *jo);
+
+// json_object_get
+int json_object_has(json_object_t *jo, char *key);
+json_element_t *json_object_get_element(json_object_t *jo, char *key);
+
+// json_object_put
+int json_object_put_null(json_object_t *jo, char *key);
+int json_object_put_json_array(json_object_t *jo, char *key,
+    json_object_t *value);
+int json_object_put_json_object(json_object_t *jo, char *key,
+    json_object_t *value);
+int json_object_put_bool(json_object_t *jo, char *key, int value);
+int json_object_put_int(json_object_t *jo, char *key, int value);
+int json_object_put_string(json_object_t *jo, char *key, char *value);
 
 // json_element
 json_element_t *json_element_create(char *key);
@@ -62,6 +77,7 @@ json_element_t *json_element_create_bool(char *key, int value);
 json_element_t *json_element_create_int(char *key, int value);
 json_element_t *json_element_create_string(char *key, char *value);
 void *json_element_destroy(json_element_t *je);
+void json_element_destroy_no_rtn(json_element_t *je);
 
 // json_to_string
 char *json_array_to_string(json_array_t *ja);

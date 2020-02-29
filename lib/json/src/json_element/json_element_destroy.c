@@ -24,3 +24,8 @@ void *json_element_destroy(json_element_t *je)
     free(je);
     return (NULL);
 }
+
+void json_element_destroy_no_rtn(json_element_t *je)
+{
+    json_element_destroy(je);
+}

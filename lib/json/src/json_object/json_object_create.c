@@ -17,7 +17,7 @@ json_object_t *json_object_create(void)
     if (!jo)
         return (NULL);
     jo->elements_count = 0;
-    jo->elements = list_create(NULL);
+    jo->elements = list_create((void (*)(void *))&json_element_destroy_no_rtn);
     if (!jo->elements)
         return (json_object_destroy(jo));
     return (jo);
