@@ -15,11 +15,11 @@ TEST_NAME = unit_tests
 
 TESTS_SRC = $(shell find tests/ -name *.c)
 
-LIBS = json
+LIBS = json list
 
 CFLAGS = -Wall -Wextra
 
-TESTS_FLAGS = -lcriterion --coverage
+TESTS_FLAGS = -lcriterion --coverage -L. lib/liblist.a
 
 # ======================================================= #
 
