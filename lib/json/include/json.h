@@ -48,12 +48,14 @@ struct json_element_s
 
 // json_array
 json_array_t *json_array_create(void);
+json_array_t *json_array_clone(json_array_t *ja);
 json_array_t *json_array_create_from_string(char *str);
 void *json_array_destroy(json_array_t *ja);
 
 // json_object
 json_object_t *json_object_create(void);
 json_object_t *json_object_create_from_string(char *str);
+json_object_t *json_object_clone(json_object_t *jo);
 int json_object_remove(json_object_t *jo, char *key);
 void *json_object_destroy(json_object_t *jo);
 
@@ -81,6 +83,7 @@ int json_object_put_string(json_object_t *jo, char *key, char *value);
 
 // json_element
 json_element_t *json_element_create(char *key);
+json_element_t *json_element_clone(json_element_t *je);
 json_element_t *json_element_create_json_array(char *key, json_array_t *value);
 json_element_t *json_element_create_json_object(char *key,
     json_object_t *value);
