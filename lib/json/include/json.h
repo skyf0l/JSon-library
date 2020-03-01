@@ -63,6 +63,7 @@ int json_object_has(json_object_t *jo, char *key);
 int json_object_is_null(json_object_t *jo, char *key);
 enum json_type json_object_get_type(json_object_t *jo, char *key);
 int json_object_get_bool(json_object_t *jo, char *key);
+int json_object_get_int(json_object_t *jo, char *key);
 
 // json_object_put
 int json_object_put_null(json_object_t *jo, char *key);

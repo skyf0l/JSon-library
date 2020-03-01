@@ -43,7 +43,7 @@ Test(json_object_get_type, j_bool)
     cr_assert_eq(type, j_bool);
     json_object_destroy(jo);
 }
-/*
+
 Test(json_object_get_type, j_int)
 {
     char *key = "key";
@@ -55,9 +55,9 @@ Test(json_object_get_type, j_int)
     type = json_object_get_type(jo, key);
     cr_assert_eq(type, j_int);
     json_object_destroy(jo);
-}*/
+}
 
-Test(json_object_get_type, j_bool_0)
+Test(json_object_get_bool, j_bool_0)
 {
     char *key = "key";
     int value = 0;
@@ -70,7 +70,7 @@ Test(json_object_get_type, j_bool_0)
     json_object_destroy(jo);
 }
 
-Test(json_object_get_type, j_bool_1)
+Test(json_object_get_bool, j_bool_1)
 {
     char *key = "key";
     int value = 1;
@@ -79,6 +79,32 @@ Test(json_object_get_type, j_bool_1)
 
     json_object_put_bool(jo, key, value);
     rtn_value = json_object_get_bool(jo, key);
+    cr_assert_eq(rtn_value, value);
+    json_object_destroy(jo);
+}
+
+Test(json_object_get_int, j_int_0)
+{
+    char *key = "key";
+    int value = 144;
+    json_object_t *jo = json_object_create();
+    int rtn_value;
+
+    json_object_put_int(jo, key, value);
+    rtn_value = json_object_get_int(jo, key);
+    cr_assert_eq(rtn_value, value);
+    json_object_destroy(jo);
+}
+
+Test(json_object_get_int, j_int_1)
+{
+    char *key = "key";
+    int value = -2147483648;
+    json_object_t *jo = json_object_create();
+    int rtn_value;
+
+    json_object_put_int(jo, key, value);
+    rtn_value = json_object_get_int(jo, key);
     cr_assert_eq(rtn_value, value);
     json_object_destroy(jo);
 }
