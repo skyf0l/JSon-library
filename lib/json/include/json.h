@@ -50,6 +50,11 @@ int json_array_remove(json_array_t *ja, int id);
 int json_array_is_null(json_array_t *ja, int id);
 int json_array_get_size(json_array_t *ja);
 enum json_type json_array_get_type(json_array_t *ja, int id);
+json_array_t *json_array_get_json_array(json_array_t *ja, int id);
+json_object_t *json_array_get_json_object(json_array_t *ja, int id);
+int json_array_get_bool(json_array_t *ja, int id);
+int json_array_get_int(json_array_t *ja, int id);
+char *json_array_get_string(json_array_t *ja, int id);
 
 // json_array_put
 int json_array_put_null(json_array_t *ja);

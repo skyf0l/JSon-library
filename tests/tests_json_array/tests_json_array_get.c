@@ -121,3 +121,61 @@ Test(json_array_get_type, j_object)
     cr_assert_eq(type, j_object);
     json_array_destroy(ja);
 }
+
+Test(json_array_get_bool, null)
+{
+    int value = 0;
+    json_array_t *ja = json_array_create();
+
+    cr_assert_eq(json_array_get_bool(ja, 0), value);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_bool, j_bool)
+{
+    int value = 1;
+    json_array_t *ja = json_array_create();
+
+    json_array_put_bool(ja, value);
+    cr_assert_eq(json_array_get_bool(ja, 0), value);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_int, null)
+{
+    int value = 0;
+    json_array_t *ja = json_array_create();
+
+    cr_assert_eq(json_array_get_int(ja, 0), value);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_int, j_int)
+{
+    int value = 144;
+    json_array_t *ja = json_array_create();
+
+    json_array_put_int(ja, value);
+    cr_assert_eq(json_array_get_int(ja, 0), value);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_string, null)
+{
+    json_array_t *ja = json_array_create();
+
+    cr_assert_null(json_array_get_string(ja, 0));
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_string, j_string)
+{
+    char *value = "string";
+    char *rtn_value;
+    json_array_t *ja = json_array_create();
+
+    json_array_put_string(ja, value);
+    rtn_value = json_array_get_string(ja, 0);
+    cr_assert_str_eq(rtn_value, value);
+    json_array_destroy(ja);
+}
