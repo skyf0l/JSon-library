@@ -13,7 +13,7 @@
 
 int json_array_remove(json_array_t *ja, int id)
 {
-    if (!ja || id < 0 || id > ja->elements_count)
+    if (!ja || id < 0 || id >= ja->elements_count)
         return (EXIT_FAILURE);
     if (list_remove(ja->elements, id))
         return (EXIT_FAILURE);
