@@ -108,3 +108,42 @@ Test(json_object_get_int, j_int_1)
     cr_assert_eq(rtn_value, value);
     json_object_destroy(jo);
 }
+
+Test(json_object_get_string, j_string_null)
+{
+    char *key = "key";
+    char *value = NULL;
+    json_object_t *jo = json_object_create();
+    char *rtn_value;
+
+    json_object_put_string(jo, key, value);
+    rtn_value = json_object_get_string(jo, key);
+    cr_assert_null(rtn_value);
+    json_object_destroy(jo);
+}
+
+Test(json_object_get_string, j_string)
+{
+    char *key = "key";
+    char *value = "hello world!";
+    json_object_t *jo = json_object_create();
+    char *rtn_value;
+
+    json_object_put_string(jo, key, value);
+    rtn_value = json_object_get_string(jo, key);
+    cr_assert_str_eq(rtn_value, value);
+    json_object_destroy(jo);
+}
+
+Test(json_object_get_string, j_string_escape_chars)
+{
+    char *key = "key";
+    char *value = "hello\n\"world\"!";
+    json_object_t *jo = json_object_create();
+    char *rtn_value;
+
+    json_object_put_string(jo, key, value);
+    rtn_value = json_object_get_string(jo, key);
+    cr_assert_str_eq(rtn_value, value);
+    json_object_destroy(jo);
+}

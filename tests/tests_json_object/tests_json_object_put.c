@@ -233,3 +233,75 @@ Test(json_object_put_int, two_not_same_key)
     cr_assert_eq(jo->elements_count, 2);
     json_object_destroy(jo);
 }
+
+Test(json_object_put_string, null)
+{
+    char *key = NULL;
+    char *value = "value";
+    json_object_t *jo = json_object_create();
+    int rtn_value = json_object_put_string(jo, key, value);
+
+    cr_assert_eq(rtn_value, EXIT_FAILURE);
+    cr_assert_eq(jo->elements_count, 0);
+    json_object_destroy(jo);
+}
+
+Test(json_object_put_string, j_null)
+{
+    char *key = "key";
+    char *value = NULL;
+    json_object_t *jo = json_object_create();
+    int rtn_value = json_object_put_string(jo, key, value);
+    json_element_t *je = (json_element_t *)jo->elements->list->data;
+
+    cr_assert_eq(rtn_value, EXIT_SUCCESS);
+    cr_assert_eq(jo->elements_count, 1);
+    cr_assert_not_null(je);
+    cr_assert_eq(je->type, j_null);
+    cr_assert_str_eq(je->key, key);
+    cr_assert_null(je->json_array);
+    cr_assert_null(je->json_object);
+    cr_assert_eq(je->json_int, 0);
+    cr_assert_null(je->json_string);
+    json_object_destroy(jo);
+}
+
+Test(json_object_put_string, basic)
+{
+    char *key = "key";
+    char *value = "a random string";
+    json_object_t *jo = json_object_create();
+    int rtn_value = json_object_put_string(jo, key, value);
+    json_element_t *je = (json_element_t *)jo->elements->list->data;
+
+    cr_assert_eq(rtn_value, EXIT_SUCCESS);
+    cr_assert_eq(jo->elements_count, 1);
+    cr_assert_not_null(je);
+    cr_assert_eq(je->type, j_string);
+    cr_assert_str_eq(je->key, key);
+    cr_assert_null(je->json_array);
+    cr_assert_null(je->json_object);
+    cr_assert_eq(je->json_int, 0);
+    cr_assert_str_eq(je->json_string, value);
+    json_object_destroy(jo);
+}
+
+Test(json_object_put_string, escape)
+{
+    char *key = "key";
+    char *value = "hello\n\"world\"!";
+    json_object_t *jo = json_object_create();
+    int rtn_value = json_object_put_string(jo, key, value);
+    json_element_t *je = (json_element_t *)jo->elements->list->data;
+
+    cr_assert_eq(rtn_value, EXIT_SUCCESS);
+    cr_assert_eq(jo->elements_count, 1);
+    cr_assert_not_null(je);
+    cr_assert_eq(je->type, j_string);
+    cr_assert_str_eq(je->key, key);
+    cr_assert_null(je->json_array);
+    cr_assert_null(je->json_object);
+    cr_assert_eq(je->json_int, 0);
+    cr_assert_str_eq(je->json_string, value);
+    json_object_destroy(jo);
+}
