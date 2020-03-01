@@ -39,6 +39,9 @@ struct json_element_s
 
 ///////////////////// PROTOTYPE /////////////////////
 
+// json_array_get
+json_element_t *json_array_get_element(json_array_t *ja, int id);
+
 // json_object_get
 json_element_t *json_object_get_element(json_object_t *jo, char *key);
 
