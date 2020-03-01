@@ -147,3 +147,63 @@ Test(json_object_to_string, one_j_string_escape)
     json_object_destroy(jo);
     free(str);
 }
+
+Test(json_object_to_string, multi_0)
+{
+    json_object_t *jo = json_object_create();
+    char *expect = "{\"key1\":null, \"key2\":null}";
+    char *str;
+
+    json_object_put_null(jo, "key1");
+    json_object_put_null(jo, "key2");
+    str = json_object_to_string(jo);
+    cr_assert_str_eq(str, expect);
+    json_object_destroy(jo);
+    free(str);
+}
+
+Test(json_object_to_string, multi_1)
+{
+    json_object_t *jo = json_object_create();
+    char *expect = "{\"key1\":null, \"key3\":null, \"key2\":null}";
+    char *str;
+
+    json_object_put_null(jo, "key1");
+    json_object_put_null(jo, "key3");
+    json_object_put_null(jo, "key2");
+    str = json_object_to_string(jo);
+    cr_assert_str_eq(str, expect);
+    json_object_destroy(jo);
+    free(str);
+}
+
+Test(json_object_to_string, multi_2)
+{
+    json_object_t *jo = json_object_create();
+    char *expect = "{\"key1\":null, \"key3\":true, \"key2\":144, \"4\":\"k\"}";
+    char *str;
+
+    json_object_put_null(jo, "key1");
+    json_object_put_bool(jo, "key3", 1);
+    json_object_put_int(jo, "key2", 144);
+    json_object_put_string(jo, "4", "k");
+    str = json_object_to_string(jo);
+    cr_assert_str_eq(str, expect);
+    json_object_destroy(jo);
+    free(str);
+}
+
+Test(json_object_to_string, multi_3)
+{
+    json_object_t *jo = json_object_create();
+    char *expect = "{\"\\n\":null, \"\":true, \"k\":144}";
+    char *str;
+
+    json_object_put_null(jo, "\n");
+    json_object_put_bool(jo, "", 1);
+    json_object_put_int(jo, "k", 144);
+    str = json_object_to_string(jo);
+    cr_assert_str_eq(str, expect);
+    json_object_destroy(jo);
+    free(str);
+}

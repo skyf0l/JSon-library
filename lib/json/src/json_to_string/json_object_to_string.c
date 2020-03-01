@@ -30,14 +30,18 @@ char *jo_to_string_add_elements(json_object_t *jo, char *str)
 {
     simple_list_t *elements;
     json_element_t *je;
+    int id = 0;
 
     elements = jo->elements->list;
     while (elements) {
         je = (json_element_t *)elements->data;
+        if (id && json_to_string_append(&str, ", "))
+            return (NULL);
         str = jo_to_string_add_element(str, je);
         if (!str)
             return (NULL);
         elements = elements->next;
+        id++;
     }
     return (str);
 }
