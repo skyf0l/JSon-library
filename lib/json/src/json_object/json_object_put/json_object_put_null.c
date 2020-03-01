@@ -16,9 +16,8 @@ int json_object_put_null(json_object_t *jo, char *key)
 
     if (!jo || !key)
         return (EXIT_FAILURE);
-    if (json_object_has(jo, key))
-        if (json_object_remove(jo, key))
-            return (EXIT_FAILURE);
+    if (json_object_remove(jo, key))
+        return (EXIT_FAILURE);
     je = json_element_create(key);
     if (!je)
         return (EXIT_FAILURE);
