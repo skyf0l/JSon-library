@@ -45,7 +45,7 @@ TMP_LFLAGS += $(addsuffix .a, $(addprefix lib/lib, $(LIBS)))
 LFLAGS := $(LFLAGS) $(addprefix -L. , $(TMP_LFLAGS))
 
 ## tests
-TEST_BUILD = *.gcno *.gcda
+TEST_BUILD = *.gcno *.gcda *.gcov
 
 ## build
 BUILD_WARN_LOG = build_warn.log

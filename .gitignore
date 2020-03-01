@@ -8,3 +8,4 @@
 /unit_tests
 *.gcda
 *.gcno
+*.gcov
