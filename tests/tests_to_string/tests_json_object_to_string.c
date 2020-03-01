@@ -207,3 +207,30 @@ Test(json_object_to_string, multi_3)
     json_object_destroy(jo);
     free(str);
 }
+
+Test(json_object_to_string, json_object_inside_0)
+{
+    json_object_t *jo = json_object_create();
+    char *expect = "{\"jo\":{}}";
+    char *str;
+
+    json_object_put_json_object(jo, "jo", json_object_create());
+    str = json_object_to_string(jo);
+    cr_assert_str_eq(str, expect);
+    json_object_destroy(jo);
+    free(str);
+}
+
+Test(json_object_to_string, json_object_inside_1)
+{
+    json_object_t *jo = json_object_create();
+    char *expect = "{\"jo\":{}, \"ja\":[]}";
+    char *str;
+
+    json_object_put_json_object(jo, "jo", json_object_create());
+    json_object_put_json_array(jo, "ja", json_array_create());
+    str = json_object_to_string(jo);
+    cr_assert_str_eq(str, expect);
+    json_object_destroy(jo);
+    free(str);
+}

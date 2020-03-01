@@ -62,6 +62,8 @@ json_element_t *json_object_get_element(json_object_t *jo, char *key);
 int json_object_has(json_object_t *jo, char *key);
 int json_object_is_null(json_object_t *jo, char *key);
 enum json_type json_object_get_type(json_object_t *jo, char *key);
+json_array_t *json_object_get_json_array(json_object_t *jo, char *key);
+json_object_t *json_object_get_json_object(json_object_t *jo, char *key);
 int json_object_get_bool(json_object_t *jo, char *key);
 int json_object_get_int(json_object_t *jo, char *key);
 char *json_object_get_string(json_object_t *jo, char *key);
@@ -69,7 +71,7 @@ char *json_object_get_string(json_object_t *jo, char *key);
 // json_object_put
 int json_object_put_null(json_object_t *jo, char *key);
 int json_object_put_json_array(json_object_t *jo, char *key,
-    json_object_t *value);
+    json_array_t *value);
 int json_object_put_json_object(json_object_t *jo, char *key,
     json_object_t *value);
 int json_object_put_bool(json_object_t *jo, char *key, int value);
@@ -78,6 +80,9 @@ int json_object_put_string(json_object_t *jo, char *key, char *value);
 
 // json_element
 json_element_t *json_element_create(char *key);
+json_element_t *json_element_create_json_array(char *key, json_array_t *value);
+json_element_t *json_element_create_json_object(char *key,
+    json_object_t *value);
 json_element_t *json_element_create_bool(char *key, int value);
 json_element_t *json_element_create_int(char *key, int value);
 json_element_t *json_element_create_string(char *key, char *value);
