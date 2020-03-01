@@ -13,6 +13,7 @@
 // const
 static char const ESCAPE_CHARS[8] = "\b\f\n\r\t\"\\";
 static char const UNESCAPE_CHARS[8] = "bfnrt\"\\";
+static char const WHITE_SPACES[5] = " \n\r\t";
 
 // def struct
 typedef struct list_s list_t;
