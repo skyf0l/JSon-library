@@ -22,8 +22,10 @@ int json_object_put_bool(json_object_t *jo, char *key, int value)
     je = json_element_create_bool(key, value);
     if (!je)
         return (EXIT_FAILURE);
-    if (list_add(jo->elements, je))
+    if (list_add(jo->elements, je)) {
+        json_element_destroy(je);
         return (EXIT_FAILURE);
+    }
     jo->elements_count++;
     return (EXIT_SUCCESS);
 }

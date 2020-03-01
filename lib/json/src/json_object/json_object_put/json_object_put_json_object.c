@@ -23,8 +23,10 @@ int json_object_put_json_object(json_object_t *jo, char *key,
     je = json_element_create_json_object(key, value);
     if (!je)
         return (EXIT_FAILURE);
-    if (list_add(jo->elements, je))
+    if (list_add(jo->elements, je)) {
+        json_element_destroy(je);
         return (EXIT_FAILURE);
+    }
     jo->elements_count++;
     return (EXIT_SUCCESS);
 }
