@@ -6,6 +6,7 @@
 */
 
 #include <criterion/criterion.h>
+#include "../../lib/json/include/private/private_json.h"
 #include "json.h"
 
 Test(json_key_to_string, null)

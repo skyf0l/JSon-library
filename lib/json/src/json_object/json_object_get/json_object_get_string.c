@@ -7,6 +7,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include "private_json.h"
 #include "json.h"
 
 char *json_object_get_string(json_object_t *jo, char *key)

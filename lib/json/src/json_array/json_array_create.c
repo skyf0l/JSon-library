@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "list.h"
+#include "private_json.h"
 #include "json.h"
 
 json_array_t *json_array_create(void)

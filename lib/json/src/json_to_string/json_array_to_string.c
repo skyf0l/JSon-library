@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "list.h"
+#include "private_json.h"
 #include "json.h"
 
 char *json_array_to_string(json_array_t *ja)

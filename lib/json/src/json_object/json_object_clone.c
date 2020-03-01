@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "list.h"
+#include "private_json.h"
 #include "json.h"
 
 json_object_t *jo_clone_add_data(json_object_t *jo_clone, json_object_t *jo)

@@ -6,7 +6,7 @@
 */
 
 #include <stddef.h>
-#include "json.h"
+#include "private_json.h"
 
 char js_to_escape_char(char c)
 {

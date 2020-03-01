@@ -7,6 +7,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include "private_json.h"
 #include "json.h"
 
 void *json_element_destroy(json_element_t *je)

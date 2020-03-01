@@ -7,6 +7,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include "private_json.h"
 #include "json.h"
 
 int json_object_has(json_object_t *jo, char *key)

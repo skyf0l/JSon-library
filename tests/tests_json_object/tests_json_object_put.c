@@ -7,6 +7,7 @@
 
 #include <criterion/criterion.h>
 #include "list.h"
+#include "../../lib/json/include/private/private_json.h"
 #include "json.h"
 
 Test(json_object_put_null, null)

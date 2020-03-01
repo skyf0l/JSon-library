@@ -7,6 +7,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include "private_json.h"
 #include "json.h"
 
 json_element_t *json_element_create(char *key)

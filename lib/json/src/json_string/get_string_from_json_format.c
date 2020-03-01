@@ -7,7 +7,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
-#include "json.h"
+#include "private_json.h"
 
 char *get_string_from_json_format(char *str)
 {

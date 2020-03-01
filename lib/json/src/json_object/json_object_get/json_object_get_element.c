@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "list.h"
+#include "private_json.h"
 #include "json.h"
 
 json_element_t *json_object_get_element(json_object_t *jo, char *key)

@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "list.h"
+#include "private_json.h"
 #include "json.h"
 
 json_array_t *ja_clone_add_data(json_array_t *ja_clone, json_array_t *ja)
