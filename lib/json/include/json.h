@@ -43,6 +43,9 @@ json_array_t *json_array_create_from_string(char *str);
 char *json_array_to_string(json_array_t *ja);
 void *json_array_destroy(json_array_t *ja);
 
+// json_array_remove
+int json_array_remove(json_array_t *ja, int id);
+
 // json_array_get
 int json_array_is_null(json_array_t *ja, int id);
 int json_array_get_size(json_array_t *ja);
@@ -66,9 +69,11 @@ int json_array_put_string_at(json_array_t *ja, char *value, int id);
 json_object_t *json_object_create(void);
 json_object_t *json_object_create_from_string(char *str);
 json_object_t *json_object_clone(json_object_t *jo);
-int json_object_remove(json_object_t *jo, char *key);
 char *json_object_to_string(json_object_t *jo);
 void *json_object_destroy(json_object_t *jo);
+
+// json_object_remove
+int json_object_remove(json_object_t *jo, char *key);
 
 // json_object_get
 int json_object_has(json_object_t *jo, char *key);
