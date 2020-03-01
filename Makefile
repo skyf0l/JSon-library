@@ -89,7 +89,7 @@ tests_run: make_lib
 
 coverage: make_lib
 	@$(RM) $(TEST_BUILD) $(TEST_NAME)
-	@$(CC) $(CFLAGS) $(IFLAGS) -o $(TEST_NAME) $(SRC) $(TESTS_SRC) -L. $(TESTS_FLAGS) 2> $(BUILD_WARN_LOG) || touch $(BUILD_ERROR_LOG)
+	@$(CC) $(CFLAGS) $(IFLAGS) -o $(TEST_NAME) $(SRC) $(TESTS_SRC) -I lib/json/include/private $(TESTS_FLAGS) 2> $(BUILD_WARN_LOG) || touch $(BUILD_ERROR_LOG)
 	@$(call print_build_status, $@)
 	@./$(TEST_NAME)
 	gcovr --exclude tests/
