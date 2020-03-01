@@ -43,6 +43,25 @@ json_array_t *json_array_create_from_string(char *str);
 char *json_array_to_string(json_array_t *ja);
 void *json_array_destroy(json_array_t *ja);
 
+// json_array_get
+int json_array_is_null(json_array_t *ja, int id);
+int json_array_get_size(json_array_t *ja);
+
+// json_array_put
+int json_array_put_null(json_array_t *ja);
+int json_array_put_null_at(json_array_t *ja, int id);
+int json_array_put_json_array(json_array_t *ja, json_array_t *value);
+int json_array_put_json_array_at(json_array_t *ja, json_array_t *value, int id);
+int json_array_put_json_object(json_array_t *ja, json_object_t *value);
+int json_array_put_json_object_at(json_array_t *ja,
+    json_object_t *value, int id);
+int json_array_put_bool(json_array_t *ja, int value);
+int json_array_put_bool_at(json_array_t *ja, int value, int id);
+int json_array_put_int(json_array_t *ja, int value);
+int json_array_put_int_at(json_array_t *ja, int value, int id);
+int json_array_put_string(json_array_t *ja, char *value);
+int json_array_put_string_at(json_array_t *ja, char *value, int id);
+
 // json_object
 json_object_t *json_object_create(void);
 json_object_t *json_object_create_from_string(char *str);
