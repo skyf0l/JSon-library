@@ -45,3 +45,79 @@ Test(json_array_get_element, basic)
     cr_assert_null(je);
     json_array_destroy(ja);
 }
+
+Test(json_array_get_type, null)
+{
+    json_array_t *ja = json_array_create();
+    enum json_type type;
+
+    type = json_array_get_type(ja, 0);
+    cr_assert_eq(type, j_null);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_type, j_null)
+{
+    json_array_t *ja = json_array_create();
+    enum json_type type;
+
+    json_array_put_null(ja);
+    type = json_array_get_type(ja, 0);
+    cr_assert_eq(type, j_null);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_type, j_bool)
+{
+    json_array_t *ja = json_array_create();
+    enum json_type type;
+
+    json_array_put_bool(ja, 0);
+    type = json_array_get_type(ja, 0);
+    cr_assert_eq(type, j_bool);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_type, j_int)
+{
+    json_array_t *ja = json_array_create();
+    enum json_type type;
+
+    json_array_put_int(ja, 0);
+    type = json_array_get_type(ja, 0);
+    cr_assert_eq(type, j_int);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_type, j_string)
+{
+    json_array_t *ja = json_array_create();
+    enum json_type type;
+
+    json_array_put_string(ja, "");
+    type = json_array_get_type(ja, 0);
+    cr_assert_eq(type, j_string);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_type, j_array)
+{
+    json_array_t *ja = json_array_create();
+    enum json_type type;
+
+    json_array_put_json_array(ja, json_array_create());
+    type = json_array_get_type(ja, 0);
+    cr_assert_eq(type, j_array);
+    json_array_destroy(ja);
+}
+
+Test(json_array_get_type, j_object)
+{
+    json_array_t *ja = json_array_create();
+    enum json_type type;
+
+    json_array_put_json_object(ja, json_object_create());
+    type = json_array_get_type(ja, 0);
+    cr_assert_eq(type, j_object);
+    json_array_destroy(ja);
+}
