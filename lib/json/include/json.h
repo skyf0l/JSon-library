@@ -61,6 +61,7 @@ void *json_object_destroy(json_object_t *jo);
 json_element_t *json_object_get_element(json_object_t *jo, char *key);
 int json_object_has(json_object_t *jo, char *key);
 int json_object_is_null(json_object_t *jo, char *key);
+int json_object_get_size(json_object_t *jo);
 enum json_type json_object_get_type(json_object_t *jo, char *key);
 json_array_t *json_object_get_json_array(json_object_t *jo, char *key);
 json_object_t *json_object_get_json_object(json_object_t *jo, char *key);

@@ -8,6 +8,20 @@
 #include <criterion/criterion.h>
 #include "json.h"
 
+Test(json_object_get_size, basic)
+{
+    json_object_t *jo = json_object_create();
+
+    cr_assert_eq(json_object_get_size(jo), 0);
+    json_object_put_null(jo, "key1");
+    cr_assert_eq(json_object_get_size(jo), 1);
+    json_object_put_int(jo, "key1", 144);
+    cr_assert_eq(json_object_get_size(jo), 1);
+    json_object_put_string(jo, "key2", "string");
+    cr_assert_eq(json_object_get_size(jo), 2);
+    json_object_destroy(jo);
+}
+
 Test(json_object_get_type, null)
 {
     char *key = NULL;
