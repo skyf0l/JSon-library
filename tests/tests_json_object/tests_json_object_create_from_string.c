@@ -15,7 +15,7 @@ Test(json_object_create_from_string, null)
 
     cr_assert_null(jo);
 }
-/*
+
 Test(json_object_create_from_string, invalid_json_0)
 {
     char *str = "{";
@@ -34,13 +34,21 @@ Test(json_object_create_from_string, invalid_json_1)
 
 Test(json_object_create_from_string, invalid_json_2)
 {
+    char *str = "{} a random thing";
+    json_object_t *jo = json_object_create_from_string(str);
+
+    cr_assert_null(jo);
+}/*
+
+Test(json_object_create_from_string, invalid_json_3)
+{
     char *str = "{,}";
     json_object_t *jo = json_object_create_from_string(str);
 
     cr_assert_null(jo);
 }
 
-Test(json_object_create_from_string, invalid_json_3)
+Test(json_object_create_from_string, invalid_json_4)
 {
     char *str = "{\"key\"}";
     json_object_t *jo = json_object_create_from_string(str);
@@ -48,7 +56,7 @@ Test(json_object_create_from_string, invalid_json_3)
     cr_assert_null(jo);
 }
 
-Test(json_object_create_from_string, invalid_json_4)
+Test(json_object_create_from_string, invalid_json_5)
 {
     char *str = "{\"key\":}";
     json_object_t *jo = json_object_create_from_string(str);
