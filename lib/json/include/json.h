@@ -49,6 +49,7 @@ int json_array_remove(json_array_t *ja, int id);
 // json_array_get
 int json_array_is_null(json_array_t *ja, int id);
 int json_array_get_size(json_array_t *ja);
+int json_array_is_null(json_array_t *ja, int id);
 
 // json_array_put
 int json_array_put_null(json_array_t *ja);

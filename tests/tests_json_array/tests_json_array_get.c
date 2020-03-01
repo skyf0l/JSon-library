@@ -7,3 +7,21 @@
 
 #include <criterion/criterion.h>
 #include "json.h"
+
+Test(json_array_get_size, basic)
+{
+    json_array_t *ja = json_array_create();
+
+    cr_assert_eq(json_array_get_size(ja), 0);
+    json_array_put_null(ja);
+    cr_assert_eq(json_array_get_size(ja), 1);
+    json_array_put_string_at(ja, "string", 0);
+    cr_assert_eq(json_array_get_size(ja), 2);
+    cr_assert_eq(json_array_remove(ja, 1), 0);
+    cr_assert_eq(json_array_get_size(ja), 1);
+    cr_assert_eq(json_array_remove(ja, 1), 1);
+    cr_assert_eq(json_array_get_size(ja), 1);
+    cr_assert_eq(json_array_remove(ja, 0), 0);
+    cr_assert_eq(json_array_get_size(ja), 0);
+    json_array_destroy(ja);
+}
