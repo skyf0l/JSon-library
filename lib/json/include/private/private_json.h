@@ -72,6 +72,9 @@ int js_count_special_chars(char *str);
 char *get_string_from_json_format(char *str);
 char *get_string_to_json_format(char *str);
 
+// json_parser
+void json_parser_skip_white_spaces(char **str);
+
 // j_str
 size_t j_strlen(char const *str);
 char *j_strclone(char const *str);
