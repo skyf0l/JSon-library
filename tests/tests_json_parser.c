@@ -70,3 +70,122 @@ Test(json_parser_skip_white_spaces, white_spaces_3)
     json_parser_skip_white_spaces(&str);
     cr_assert_str_eq(str, expected);
 }
+
+Test(json_parser_skip_white_spaces, white_spaces_4)
+{
+    char *str = "    \t  \n\n \r\r\t  n \r   \t";
+    char *expected = "";
+
+    json_parser_skip_white_spaces(&str);
+    str++;
+    json_parser_skip_white_spaces(&str);
+    cr_assert_str_eq(str, expected);
+}
+
+Test(json_parser_get_string, invalid_0)
+{
+    char *str = "";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+Test(json_parser_get_string, invalid_1)
+{
+    char *str = "\"";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+Test(json_parser_get_string, invalid_2)
+{
+    char *str = "\"azerty";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+Test(json_parser_get_string, invalid_3)
+{
+    char *str = " \"azerty\"";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+Test(json_parser_get_string, invalid_4)
+{
+    char *str = "\"azerty\\\"";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+Test(json_parser_get_string, invalid_5)
+{
+    char *str = "\"aze\\krty\"";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+Test(json_parser_get_string, valid_0)
+{
+    char *str = "\"string\"";
+    char *expected = "";
+    char *string = json_parser_get_string(&str);
+    char *string_expected = "string";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_string, valid_1)
+{
+    char *str = "\"string\":  ";
+    char *expected = ":  ";
+    char *string = json_parser_get_string(&str);
+    char *string_expected = "string";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_string, valid_2)
+{
+    char *str = "\"\":  ";
+    char *expected = ":  ";
+    char *string = json_parser_get_string(&str);
+    char *string_expected = "";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_string, valid_3)
+{
+    char *str = "\"esc\\nape\":  false,";
+    char *expected = ":  false,";
+    char *string = json_parser_get_string(&str);
+    char *string_expected = "esc\nape";
+
+    cr_assert_str_eq(string, string_expected);
+    cr_assert_str_eq(str, expected);
+    free(string);
+}
+
+Test(json_parser_get_string, valid_4)
+{
+    char *str = "\"\\b\\f\\n\\r\\t\\\"\\\\\":  false,";
+    char *expected = ":  false,";
+    char *string = json_parser_get_string(&str);
+    char *string_expected = "\b\f\n\r\t\"\\";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}

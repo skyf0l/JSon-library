@@ -38,11 +38,11 @@ Test(json_object_create_from_string, invalid_json_2)
     json_object_t *jo = json_object_create_from_string(str);
 
     cr_assert_null(jo);
-}/*
+}
 
 Test(json_object_create_from_string, invalid_json_3)
 {
-    char *str = "{,}";
+    char *str = "{, true}";
     json_object_t *jo = json_object_create_from_string(str);
 
     cr_assert_null(jo);
@@ -50,13 +50,29 @@ Test(json_object_create_from_string, invalid_json_3)
 
 Test(json_object_create_from_string, invalid_json_4)
 {
-    char *str = "{\"key\"}";
+    char *str = "{key}";
     json_object_t *jo = json_object_create_from_string(str);
 
     cr_assert_null(jo);
 }
 
 Test(json_object_create_from_string, invalid_json_5)
+{
+    char *str = "{\"key}";
+    json_object_t *jo = json_object_create_from_string(str);
+
+    cr_assert_null(jo);
+}
+
+Test(json_object_create_from_string, invalid_json_6)
+{
+    char *str = "{\"key\"}";
+    json_object_t *jo = json_object_create_from_string(str);
+
+    cr_assert_null(jo);
+}
+
+Test(json_object_create_from_string, invalid_json_7)
 {
     char *str = "{\"key\":}";
     json_object_t *jo = json_object_create_from_string(str);
@@ -67,51 +83,42 @@ Test(json_object_create_from_string, invalid_json_5)
 Test(json_object_create_from_string, just_create)
 {
     char *str = "{}";
+    char *expected = "{}";
     char *to_string;
     json_object_t *jo = json_object_create_from_string(str);
 
     to_string = json_object_to_string(jo);
-    cr_assert_str_eq(to_string, str);
+    cr_assert_str_eq(to_string, expected);
     json_object_destroy(jo);
     free(to_string);
 }
 
-Test(json_object_create_from_string, just_create_with_space)
+Test(json_object_create_from_string, just_create_with_space_0)
 {
-    char *str = " { } ";
+    char *str = "  { }    ";
+    char *expected = "{}";
     char *to_string;
     json_object_t *jo = json_object_create_from_string(str);
 
     to_string = json_object_to_string(jo);
-    cr_assert_str_eq(to_string, str);
+    cr_assert_str_eq(to_string, expected);
     json_object_destroy(jo);
     free(to_string);
 }
 
-Test(json_object_create_from_string, just_create_with_tabs)
+Test(json_object_create_from_string, just_create_with_space_1)
 {
-    char *str = "\t{\t}\t";
+    char *str = "\t\n\r  \t{\n\n\t}\t\n\r  \r";
+    char *expected = "{}";
     char *to_string;
     json_object_t *jo = json_object_create_from_string(str);
 
     to_string = json_object_to_string(jo);
-    cr_assert_str_eq(to_string, str);
+    cr_assert_str_eq(to_string, expected);
     json_object_destroy(jo);
     free(to_string);
 }
-
-Test(json_object_create_from_string, just_create_with_tabs)
-{
-    char *str = "\n{\n}\n";
-    char *to_string;
-    json_object_t *jo = json_object_create_from_string(str);
-
-    to_string = json_object_to_string(jo);
-    cr_assert_str_eq(to_string, str);
-    json_object_destroy(jo);
-    free(to_string);
-}
-
+/*
 Test(json_object_create_from_string, j_null)
 {
     char *str = "{\"key\":null}";
