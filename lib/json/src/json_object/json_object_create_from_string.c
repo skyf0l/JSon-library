@@ -25,6 +25,21 @@ int jo_parse_string(json_object_t *jo, char **str)
     return (EXIT_SUCCESS);
 }
 
+json_object_t *jo_create_from_string(char **str)
+{
+    json_object_t *jo;
+
+    if (!str || !*str)
+        return (NULL);
+    jo = json_object_create();
+    if (!jo)
+        return (NULL);
+    if (jo_parse_string(jo, str))
+        return (json_object_destroy(jo));
+    json_parser_skip_white_spaces(str);
+    return (jo);
+}
+
 json_object_t *json_object_create_from_string(char *str)
 {
     json_object_t *jo;

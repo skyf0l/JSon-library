@@ -6,6 +6,7 @@
 */
 
 #include <criterion/criterion.h>
+#include "../../lib/json/include/private/private_json.h"
 #include "json.h"
 
 Test(json_object_create_from_string, null)
@@ -80,15 +81,96 @@ Test(json_object_create_from_string, invalid_json_7)
     cr_assert_null(jo);
 }
 
-Test(json_object_create_from_string, just_create)
+Test(jo_create_from_string, null)
 {
-    char *str = "{}";
-    char *expected = "{}";
+    char *str = NULL;
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, invalid_json_0)
+{
+    char *str = "{";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, invalid_json_1)
+{
+    char *str = "}";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, invalid_json_2)
+{
+    char *str = "{, true}";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, invalid_json_3)
+{
+    char *str = "{key}";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, invalid_json_4)
+{
+    char *str = "{\"key}";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, invalid_json_5)
+{
+    char *str = "{\"key\"}";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, invalid_json_6)
+{
+    char *str = "{\"key\":}";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    cr_assert_null(jo);
+}
+
+Test(jo_create_from_string, valid_json)
+{
+    char *str = "{} a random thing";
+    char *str_expected = "a random thing";
     char *to_string;
-    json_object_t *jo = json_object_create_from_string(str);
+    char *expected = "{}";
+    json_object_t *jo = jo_create_from_string(&str);
 
     to_string = json_object_to_string(jo);
     cr_assert_str_eq(to_string, expected);
+    cr_assert_str_eq(str, str_expected);
+    json_object_destroy(jo);
+    free(to_string);
+}
+
+Test(jo_create_from_string, just_create)
+{
+    char *str = "{}";
+    char *str_expected = "";
+    char *to_string;
+    char *expected = "{}";
+    json_object_t *jo = jo_create_from_string(&str);
+
+    to_string = json_object_to_string(jo);
+    cr_assert_str_eq(to_string, expected);
+    cr_assert_str_eq(str, str_expected);
     json_object_destroy(jo);
     free(to_string);
 }
