@@ -41,7 +41,8 @@ char *json_parser_get_string(char **str)
     string = malloc(sizeof(char) * (size + 1));
     for (int k = 0, i = 0; k < size; k++) {
         if (**str == '\\' && js_is_unescape_char(**str)) {
-            string[i++] = js_to_escape_char(*(((*str) += 2) - 1));
+            string[i++] = js_to_escape_char(*(++*str));
+            ++*str;
             continue;
         }
         string[i++] = *(*str)++;
