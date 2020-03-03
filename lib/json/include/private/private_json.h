@@ -24,7 +24,7 @@ typedef struct json_element_s json_element_t;
 // enum
 #ifndef JSON_TYPE
 #define JSON_TYPE
-enum json_type {j_null, j_array, j_object, j_bool, j_int, j_string};
+enum json_type {j_null, j_array, j_object, j_bool, j_int, j_string, j_unexist};
 #endif /* !JSON_TYPE */
 
 // struct
@@ -79,11 +79,14 @@ void json_parser_skip_white_spaces(char **str);
 char *json_parser_get_string(char **str);
 char *json_parser_get_value_string(char **str);
 int jp_get_value_string_size(char *str);
+enum json_type json_parser_get_value_type(char *type);
 
 // j_str
 size_t j_strlen(char const *str);
 char *j_strclone(char const *str);
 int j_strcmp(char const *s1, char const *s2);
+int j_str_isint(char *str);
+int j_atoi(char *str);
 char *j_itoa(int n);
 char *j_strrev(char *str);
 

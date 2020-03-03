@@ -23,6 +23,8 @@ int jp_get_string_lenght(char *str)
             return (-1);
         if (str[k] == '"')
             return (len);
+        if (str[k] != '\\' && js_is_escape_char(str[k]))
+            return (-1);
         len++;
     }
     return (-1);

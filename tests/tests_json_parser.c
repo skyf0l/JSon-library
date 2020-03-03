@@ -130,6 +130,23 @@ Test(json_parser_get_string, invalid_5)
     cr_assert_null(string);
 }
 
+Test(json_parser_get_string, invalid_6)
+{
+    char *str = "\"azer\nty\"";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+Test(json_parser_get_string, invalid_7)
+{
+    char *str = "\"azerty  ";
+    char *string = json_parser_get_string(&str);
+
+    cr_assert_null(string);
+}
+
+
 Test(json_parser_get_string, valid_0)
 {
     char *str = "\"string\"";
@@ -364,4 +381,164 @@ Test(json_parser_get_value_string, j_string_next_3)
     cr_assert_str_eq(str, expected);
     cr_assert_str_eq(string, string_expected);
     free(string);
+}
+
+Test(json_parser_get_value_type, j_unexist_0)
+{
+    char *string = "";
+    enum json_type type;
+    enum json_type expected = j_unexist;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_unexist_1)
+{
+    char *string = "flase";
+    enum json_type type;
+    enum json_type expected = j_unexist;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_null)
+{
+    char *string = "null";
+    enum json_type type;
+    enum json_type expected = j_null;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_bool_0)
+{
+    char *string = "false";
+    enum json_type type;
+    enum json_type expected = j_bool;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_bool_1)
+{
+    char *string = "true";
+    enum json_type type;
+    enum json_type expected = j_bool;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_int_0)
+{
+    char *string = "0";
+    enum json_type type;
+    enum json_type expected = j_int;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_int_1)
+{
+    char *string = "144";
+    enum json_type type;
+    enum json_type expected = j_int;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_int_2)
+{
+    char *string = "2147483647";
+    enum json_type type;
+    enum json_type expected = j_int;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_int_3)
+{
+    char *string = "-2147483648";
+    enum json_type type;
+    enum json_type expected = j_int;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_int__overflow_0)
+{
+    char *string = "-21474836481";
+    enum json_type type;
+    enum json_type expected = j_unexist;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_int__overflow_1)
+{
+    char *string = "2147483648";
+    enum json_type type;
+    enum json_type expected = j_unexist;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_string_0)
+{
+    char *string = "\"str\"";
+    enum json_type type;
+    enum json_type expected = j_string;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_string_1)
+{
+    char *string = "\"str string !!! \n\n\"";
+    enum json_type type;
+    enum json_type expected = j_string;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_string__error_0)
+{
+    char *string = "\"str\"\"";
+    enum json_type type;
+    enum json_type expected = j_unexist;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_string__error_1)
+{
+    char *string = "\"str\n\"";
+    enum json_type type;
+    enum json_type expected = j_unexist;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_string__error_2)
+{
+    char *string = "\"str string !!!";
+    enum json_type type;
+    enum json_type expected = j_unexist;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
 }

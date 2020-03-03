@@ -19,7 +19,7 @@ typedef struct json_element_s json_element_t;
 // enum
 #ifndef JSON_TYPE
 #define JSON_TYPE
-enum json_type {j_null, j_array, j_object, j_bool, j_int, j_string};
+enum json_type {j_null, j_array, j_object, j_bool, j_int, j_string, j_unexist};
 #endif /* !JSON_TYPE */
 
 // struct
