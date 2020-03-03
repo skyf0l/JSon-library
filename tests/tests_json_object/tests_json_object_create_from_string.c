@@ -148,7 +148,7 @@ Test(jo_create_from_string, invalid_json_6)
 Test(jo_create_from_string, valid_json)
 {
     char *str = "{} a random thing";
-    char *str_expected = "a random thing";
+    char *str_expected = " a random thing";
     char *to_string;
     char *expected = "{}";
     json_object_t *jo = jo_create_from_string(&str);

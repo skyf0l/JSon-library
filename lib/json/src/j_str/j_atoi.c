@@ -7,5 +7,5 @@
 
 int j_atoi(char *str)
 {
-
+    return (atoi(str));
 }

@@ -207,6 +207,18 @@ Test(json_parser_get_string, valid_4)
     free(string);
 }
 
+Test(json_parser_get_string, valid_5)
+{
+    char *str = "\"null\"";
+    char *expected = "";
+    char *string = json_parser_get_string(&str);
+    char *string_expected = "null";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
 Test(json_parser_get_value_string, empty)
 {
     char *str = "";
@@ -275,10 +287,31 @@ Test(jp_get_value_string_size, j_bool)
     cr_assert_eq(size, expected);
 }
 
+Test(jp_get_value_string_size, j_int)
+{
+    char *str = "-26  }";
+    int size = jp_get_value_string_size(str);
+    int expected = 3;
+
+    cr_assert_eq(size, expected);
+}
+
 Test(json_parser_get_value_string, empty_next)
 {
     char *str = ", ";
     char *expected = ", ";
+    char *string = json_parser_get_value_string(&str);
+    char *string_expected = "";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_value_string, empty_next_1)
+{
+    char *str = "}";
+    char *expected = "}";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "";
 
@@ -538,6 +571,16 @@ Test(json_parser_get_value_type, j_int_2)
 Test(json_parser_get_value_type, j_int_3)
 {
     char *string = "-2147483648";
+    enum json_type type;
+    enum json_type expected = j_int;
+
+    type = json_parser_get_value_type(string);
+    cr_assert_eq(type, expected);
+}
+
+Test(json_parser_get_value_type, j_int_4)
+{
+    char *string = "-26";
     enum json_type type;
     enum json_type expected = j_int;
 

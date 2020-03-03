@@ -150,6 +150,19 @@ Test(json_element_to_string, j_int_4)
     free(to_string);
 }
 
+Test(json_element_to_string, j_int_5)
+{
+    char *key = "key";
+    int value = -26;
+    char *expected = "\"key\":-26";
+    json_element_t *je = json_element_create_int(key, value);
+    char *to_string = json_element_to_string(je);
+
+    cr_assert_str_eq(to_string, expected);
+    json_element_destroy(je);
+    free(to_string);
+}
+
 Test(json_element_to_string, j_string_null)
 {
     char *key = "key";

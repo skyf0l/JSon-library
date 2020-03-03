@@ -143,6 +143,30 @@ Test(json_array_create_from_string, valid_1)
     cr_assert_str_eq(to_string, expected);
 }
 
+Test(json_array_create_from_string, valid_2)
+{
+    char *str = "   [  null  ,   false   ,   \"true\"   ]    ";
+    char *expected = "[null, false, \"true\"]";
+    char *to_string;
+    json_array_t *ja = json_array_create_from_string(str);
+
+    cr_assert_not_null(ja);
+    to_string = json_array_to_string(ja);
+    cr_assert_str_eq(to_string, expected);
+}
+
+Test(json_array_create_from_string, valid_3)
+{
+    char *str = "   [  null  ,   false   ,   \"true\"   , -26]    ";
+    char *expected = "[null, false, \"true\", -26]";
+    char *to_string;
+    json_array_t *ja = json_array_create_from_string(str);
+
+    cr_assert_not_null(ja);
+    to_string = json_array_to_string(ja);
+    cr_assert_str_eq(to_string, expected);
+}
+
 Test(json_array_create_from_string, invalid_recursif_array_0)
 {
     char *str = "[[]";
