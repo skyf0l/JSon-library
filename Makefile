@@ -17,7 +17,7 @@ TESTS_SRC = $(shell find tests/ -name *.c)
 
 LIBS = json list
 
-CFLAGS = -Wall -Wextra -g3
+CFLAGS = -Wall -Wextra
 
 TESTS_FLAGS = -lcriterion --coverage -L. lib/liblist.a
 
@@ -48,7 +48,7 @@ LFLAGS := $(LFLAGS) $(addprefix -L. , $(TMP_LFLAGS))
 TESTS_OBJ = $(TESTS_SRC:.c=.o)
 
 ## tests
-TEST_BUILD = *.gcno *.gcda *.gcov
+TEST_BUILD = *.gcno *.gcda *.gcov vgcore.*
 
 ## build
 BUILD_WARN_LOG = build_warn.log
