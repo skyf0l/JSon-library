@@ -5,7 +5,34 @@
 ** Json_parser_get_value_string function
 */
 
-void json_parser_get_value_string()
-{
+#include <stddef.h>
+#include <stdlib.h>
+#include "private_json.h"
 
+int jp_get_value_string_size(char *str)
+{
+    for (int len = 0; str && str[len]; len++) {
+        if (str[len] == ',')
+            return (len);
+    }
+    return (-1);
+}
+
+char *json_parser_get_value_string(char **str)
+{
+    int size;
+    char *value_str = NULL;
+
+    if (!str || !*str)
+        return (NULL);
+    size = jp_get_value_string_size(*str);
+    value_str = malloc(sizeof(char) * (size + 1));
+    if (size == -1)
+        return (NULL);
+    for (int k = 0; k < size; k++) {
+        value_str[k] = *(*str)++;
+    }
+    value_str[size] = '\0';
+    ++*str;
+    return (value_str);
 }

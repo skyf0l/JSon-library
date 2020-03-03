@@ -33,7 +33,7 @@ char *json_parser_get_string(char **str)
     int size;
     char *string = NULL;
 
-    if (*(*str)++ != '"')
+    if (!str || !*str || *(*str)++ != '"')
         return (NULL);
     size = jp_get_string_lenght(*str);
     if (size == -1)
@@ -47,6 +47,7 @@ char *json_parser_get_string(char **str)
         }
         string[i++] = *(*str)++;
     }
+    string[size] = '\0';
     ++*str;
     return (string);
 }
