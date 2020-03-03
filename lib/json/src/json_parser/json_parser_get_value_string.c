@@ -13,8 +13,10 @@ int jp_get_value_string_size(char *str)
 {
     int len = 0;
 
-    for (len = 0; str && str[len] && str[len] != ','; len++);
-    if (str[len] != ',')
+    if (*str == '"')
+        len = jp_get_string_size(&str[1]) + 2;
+    for (; str && str[len] && str[len] != ',' && str[len] != '}' && str[len] != ']'; len++);
+    if (!str[len])
         return (-1);
     while (len > 0 && sp_is_white_space(str[len - 1]))
         len--;
@@ -37,6 +39,5 @@ char *json_parser_get_value_string(char **str)
     }
     value_str[size] = '\0';
     json_parser_skip_white_spaces(str);
-    ++*str;
     return (value_str);
 }

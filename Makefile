@@ -44,6 +44,9 @@ IFLAGS += $(addprefix -I./include/, $(LIBS))
 TMP_LFLAGS += $(addsuffix .a, $(addprefix lib/lib, $(LIBS)))
 LFLAGS := $(LFLAGS) $(addprefix -L. , $(TMP_LFLAGS))
 
+## obj
+TESTS_OBJ = $(TESTS_SRC:.c=.o)
+
 ## tests
 TEST_BUILD = *.gcno *.gcda *.gcov
 
@@ -54,6 +57,9 @@ LOGS = $(BUILD_WARN_LOG) $(BUILD_ERROR_LOG)
 
 ## rules
 all: $(NAME)
+
+%.o: %.c
+	@$(CC) $(CFLAGS) $(IFLAGS) $(OTHER_FLAGS) -c $< -o $@
 
 $(NAME): make_lib
 
@@ -81,15 +87,15 @@ fclean:
 
 re: fclean make_lib
 
-tests_run: make_lib
+tests_run: make_lib $(TESTS_OBJ)
 	@$(RM) $(TEST_BUILD) $(TEST_NAME)
-	@$(CC) $(CFLAGS) $(IFLAGS) -o $(TEST_NAME) $(TESTS_SRC) -L. lib/libjson.a $(TESTS_FLAGS) 2> $(BUILD_WARN_LOG) || touch $(BUILD_ERROR_LOG)
+	@$(CC) $(CFLAGS) $(IFLAGS) -o $(TEST_NAME) $(TESTS_OBJ) -L. lib/libjson.a $(TESTS_FLAGS) 2> $(BUILD_WARN_LOG) || touch $(BUILD_ERROR_LOG)
 	@$(call print_build_status, $@)
 	@./$(TEST_NAME)
 
-coverage: make_lib
+coverage: make_lib $(TESTS_OBJ)
 	@$(RM) $(TEST_BUILD) $(TEST_NAME)
-	@$(CC) $(CFLAGS) $(IFLAGS) -o $(TEST_NAME) $(SRC) $(TESTS_SRC) -I lib/json/include/private $(TESTS_FLAGS) 2> $(BUILD_WARN_LOG) || touch $(BUILD_ERROR_LOG)
+	@$(CC) $(CFLAGS) $(IFLAGS) -o $(TEST_NAME) $(SRC) $(TESTS_OBJ) -I lib/json/include/private $(TESTS_FLAGS) 2> $(BUILD_WARN_LOG) || touch $(BUILD_ERROR_LOG)
 	@$(call print_build_status, $@)
 	@./$(TEST_NAME)
 	gcovr --exclude tests/

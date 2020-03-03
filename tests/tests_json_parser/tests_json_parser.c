@@ -6,7 +6,7 @@
 */
 
 #include <criterion/criterion.h>
-#include "../lib/json/include/private/private_json.h"
+#include "../../lib/json/include/private/private_json.h"
 #include "json.h"
 
 Test(json_parser_skip_white_spaces, null)
@@ -278,7 +278,7 @@ Test(jp_get_value_string_size, j_bool)
 Test(json_parser_get_value_string, empty_next)
 {
     char *str = ", ";
-    char *expected = " ";
+    char *expected = ", ";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "";
 
@@ -290,7 +290,7 @@ Test(json_parser_get_value_string, empty_next)
 Test(json_parser_get_value_string, empty_next_2)
 {
     char *str = "  , ";
-    char *expected = " ";
+    char *expected = ", ";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "";
 
@@ -302,7 +302,7 @@ Test(json_parser_get_value_string, empty_next_2)
 Test(json_parser_get_value_string, j_bool_next)
 {
     char *str = "false, \"key2\"";
-    char *expected = " \"key2\"";
+    char *expected = ", \"key2\"";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "false";
 
@@ -314,7 +314,7 @@ Test(json_parser_get_value_string, j_bool_next)
 Test(json_parser_get_value_string, j_bool_next_2)
 {
     char *str = "false  , \"key2\"";
-    char *expected = " \"key2\"";
+    char *expected = ", \"key2\"";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "false";
 
@@ -326,7 +326,7 @@ Test(json_parser_get_value_string, j_bool_next_2)
 Test(json_parser_get_value_string, j_int_next)
 {
     char *str = "-144, random";
-    char *expected = " random";
+    char *expected = ", random";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "-144";
 
@@ -338,7 +338,43 @@ Test(json_parser_get_value_string, j_int_next)
 Test(json_parser_get_value_string, j_int_next_2)
 {
     char *str = "-144  , random";
-    char *expected = " random";
+    char *expected = ", random";
+    char *string = json_parser_get_value_string(&str);
+    char *string_expected = "-144";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_value_string, j_int_next_3)
+{
+    char *str = "-144  } , random";
+    char *expected = "} , random";
+    char *string = json_parser_get_value_string(&str);
+    char *string_expected = "-144";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_value_string, j_int_next_4)
+{
+    char *str = "-144  ] , random";
+    char *expected = "] , random";
+    char *string = json_parser_get_value_string(&str);
+    char *string_expected = "-144";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_value_string, j_int_next_5)
+{
+    char *str = "-144   \n   ] , random";
+    char *expected = "] , random";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "-144";
 
@@ -350,7 +386,7 @@ Test(json_parser_get_value_string, j_int_next_2)
 Test(json_parser_get_value_string, j_string_next)
 {
     char *str = "\"some string\", some else";
-    char *expected = " some else";
+    char *expected = ", some else";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "\"some string\"";
 
@@ -362,7 +398,7 @@ Test(json_parser_get_value_string, j_string_next)
 Test(json_parser_get_value_string, j_string_next_2)
 {
     char *str = "\"some string  \"  , some else";
-    char *expected = " some else";
+    char *expected = ", some else";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "\"some string  \"";
 
@@ -374,9 +410,45 @@ Test(json_parser_get_value_string, j_string_next_2)
 Test(json_parser_get_value_string, j_string_next_3)
 {
     char *str = "\"some string  \" \n\t\r , some else";
-    char *expected = " some else";
+    char *expected = ", some else";
     char *string = json_parser_get_value_string(&str);
     char *string_expected = "\"some string  \"";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_value_string, j_string_next_4)
+{
+    char *str = "\"some, string\", some else";
+    char *expected = ", some else";
+    char *string = json_parser_get_value_string(&str);
+    char *string_expected = "\"some, string\"";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_value_string, j_string_next_5)
+{
+    char *str = "\"some string \"}, some else";
+    char *expected = "}, some else";
+    char *string = json_parser_get_value_string(&str);
+    char *string_expected = "\"some string \"";
+
+    cr_assert_str_eq(str, expected);
+    cr_assert_str_eq(string, string_expected);
+    free(string);
+}
+
+Test(json_parser_get_value_string, j_string_next_6)
+{
+    char *str = "\"some string \"   }, some else";
+    char *expected = "}, some else";
+    char *string = json_parser_get_value_string(&str);
+    char *string_expected = "\"some string \"";
 
     cr_assert_str_eq(str, expected);
     cr_assert_str_eq(string, string_expected);
@@ -542,11 +614,3 @@ Test(json_parser_get_value_type, j_string__error_2)
     type = json_parser_get_value_type(string);
     cr_assert_eq(type, expected);
 }
-/*
-Test(json_parser_to_element, null)
-{
-    char *string = NULL;
-    json_element_t *je = json_parser_to_element(&string);
-
-    cr_assert_null(je);
-}*/

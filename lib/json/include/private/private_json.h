@@ -81,7 +81,8 @@ int jp_get_string_size(char *str);
 char *json_parser_get_value_string(char **str);
 int jp_get_value_string_size(char *str);
 enum json_type json_parser_get_value_type(char *type);
-json_element_t *json_parser_to_element(char **str);
+json_element_t *json_parser_to_array_element(char **str);
+json_element_t *json_parser_to_object_element(char **str);
 
 // j_str
 size_t j_strlen(char const *str);
