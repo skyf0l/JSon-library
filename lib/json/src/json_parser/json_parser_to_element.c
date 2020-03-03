@@ -10,6 +10,25 @@
 #include "private_json.h"
 #include "json.h"
 
+json_element_t *json_parser_to_element_array(char *key, char **str)
+{
+    json_element_t *je;
+    json_array_t *ja;
+
+    if (!str || !*str)
+        return (NULL);
+    ja = ja_create_from_string(str);
+    if (!ja)
+        return (NULL);
+    je = json_element_create_json_array(key, ja);
+    return (je);
+}
+
+json_element_t *json_parser_to_element_object(char *key, char **str)
+{
+    return (NULL);
+}
+
 json_element_t *json_parser_to_element(enum json_type type,
     char *key, char *value)
 {

@@ -40,6 +40,11 @@ struct json_element_s
 
 ///////////////////// PROTOTYPE /////////////////////
 
+// json_array and json_object recursive from_string
+json_array_t *ja_create_from_string(char **str);
+json_element_t *json_parser_to_element_array(char *key, char **str);
+json_element_t *json_parser_to_element_object(char *key, char **str);
+
 // json_array_get
 json_element_t *json_array_get_element(json_array_t *ja, int id);
 

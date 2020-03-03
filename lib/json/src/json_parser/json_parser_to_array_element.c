@@ -18,6 +18,10 @@ json_element_t *json_parser_to_array_element(char **str)
 
     if (!str || !*str || !**str)
         return (NULL);
+    if (**str == '[')
+        return (json_parser_to_element_array(NULL, str));
+    if (**str == '{')
+        return (json_parser_to_element_object(NULL, str));
     value_string = json_parser_get_value_string(str);
     if (!value_string)
         return (NULL);
