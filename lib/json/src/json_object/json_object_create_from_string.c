@@ -7,6 +7,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include "list.h"
 #include "private_json.h"
 #include "json.h"
 
@@ -22,7 +23,7 @@ int jo_parse_string(json_object_t *jo, char **str)
         if (jo->elements_count)
             ++*str;
         json_parser_skip_white_spaces(str);
-        je = json_parser_to_array_element(str);
+        je = json_parser_to_object_element(str);
         if (!je)
             return (EXIT_FAILURE);
         list_add(jo->elements, je);

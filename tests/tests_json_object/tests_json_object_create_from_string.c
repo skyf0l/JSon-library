@@ -200,7 +200,7 @@ Test(json_object_create_from_string, just_create_with_space_1)
     json_object_destroy(jo);
     free(to_string);
 }
-/*
+
 Test(json_object_create_from_string, j_null)
 {
     char *str = "{\"key\":null}";
@@ -295,4 +295,4 @@ Test(json_object_create_from_string, j_string_escape)
     cr_assert_str_eq(to_string, str);
     json_object_destroy(jo);
     free(to_string);
-}*/
+}
