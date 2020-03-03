@@ -73,3 +73,49 @@ Test(json_parser_to_array_element, j_null_2)
     cr_assert_str_eq(string, expected);
     json_element_destroy(je);
 }
+
+Test(json_parser_to_array_element, j_null_3)
+{
+    char *string = "null]\n\t\r, azerty";
+    char *expected = "]\n\t\r, azerty";
+    json_element_t *je = json_parser_to_array_element(&string);
+
+    cr_assert_eq(je->type, j_null);
+    cr_assert_str_eq(string, expected);
+    json_element_destroy(je);
+}
+
+Test(json_parser_to_array_element, j_null_4)
+{
+    char *string = "null \n\t}\r, azerty";
+    char *expected = "}\r, azerty";
+    json_element_t *je = json_parser_to_array_element(&string);
+
+    cr_assert_eq(je->type, j_null);
+    cr_assert_str_eq(string, expected);
+    json_element_destroy(je);
+}
+
+Test(json_parser_to_array_element, j_bool_0)
+{
+    char *string = "false \n\t}\r, azerty";
+    char *expected = "}\r, azerty";
+    json_element_t *je = json_parser_to_array_element(&string);
+
+    cr_assert_eq(je->type, j_bool);
+    cr_assert_eq(je->json_int, 0);
+    cr_assert_str_eq(string, expected);
+    json_element_destroy(je);
+}
+
+Test(json_parser_to_array_element, j_bool_1)
+{
+    char *string = "true \n\t}\r, azerty";
+    char *expected = "}\r, azerty";
+    json_element_t *je = json_parser_to_array_element(&string);
+
+    cr_assert_eq(je->type, j_bool);
+    cr_assert_eq(je->json_int, 1);
+    cr_assert_str_eq(string, expected);
+    json_element_destroy(je);
+}

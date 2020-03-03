@@ -26,7 +26,7 @@ json_element_t *json_parser_to_array_element(char **str)
         return (NULL);
         free(value_string);
     }
-    je = json_element_create(NULL);
+    je = json_parser_to_element(type, NULL, value_string);
     free(value_string);
     return (je);
 }
