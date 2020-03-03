@@ -43,12 +43,15 @@ json_element_t *json_parser_to_object_element(char **str)
     if (**str == '{')
         return (json_parser_to_element_object(key, str));
     value_string = json_parser_get_value_string(str);
-    if (!value_string)
+    if (!value_string) {
+        free(key);
         return (NULL);
+    }
     type = json_parser_get_value_type(value_string);
     if (type == j_unexist) {
-        return (NULL);
+        free(key);
         free(value_string);
+        return (NULL);
     }
     je = json_parser_to_element(type, key, value_string);
     free(key);

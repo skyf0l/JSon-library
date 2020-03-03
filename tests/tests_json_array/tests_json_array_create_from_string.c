@@ -83,6 +83,22 @@ Test(json_array_create_from_string, invalid_6)
     cr_assert_null(ja);
 }
 
+Test(json_array_create_from_string, invalid_7)
+{
+    char *str = "[null, false, true]k";
+    json_array_t *ja = json_array_create_from_string(str);
+
+    cr_assert_null(ja);
+}
+
+Test(json_array_create_from_string, invalid_8)
+{
+    char *str = "[null, false, true] k";
+    json_array_t *ja = json_array_create_from_string(str);
+
+    cr_assert_null(ja);
+}
+
 Test(json_array_create_from_string, valid_j_null_0)
 {
     char *str = "[null]";

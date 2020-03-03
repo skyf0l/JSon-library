@@ -15,7 +15,7 @@ SRC = $(shell find src/ -name *.c)
 HNAME = json.h
 $(eval HNAME = $(addprefix include/, $(HNAME)))
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -g3
 
 IFLAGS = -I./include -I./include/private
 

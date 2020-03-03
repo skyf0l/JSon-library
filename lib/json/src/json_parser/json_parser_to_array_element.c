@@ -27,8 +27,8 @@ json_element_t *json_parser_to_array_element(char **str)
         return (NULL);
     type = json_parser_get_value_type(value_string);
     if (type == j_unexist) {
-        return (NULL);
         free(value_string);
+        return (NULL);
     }
     je = json_parser_to_element(type, NULL, value_string);
     free(value_string);

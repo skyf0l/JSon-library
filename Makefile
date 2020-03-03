@@ -17,7 +17,7 @@ TESTS_SRC = $(shell find tests/ -name *.c)
 
 LIBS = json list
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -g3
 
 TESTS_FLAGS = -lcriterion --coverage -L. lib/liblist.a
 

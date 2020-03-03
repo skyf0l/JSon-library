@@ -15,12 +15,17 @@ json_element_t *json_parser_to_element_array(char *key, char **str)
     json_element_t *je;
     json_array_t *ja;
 
-    if (!str || !*str)
+    if (!str || !*str) {
+        free(key);
         return (NULL);
+    }
     ja = ja_create_from_string(str);
-    if (!ja)
+    if (!ja) {
+        free(key);
         return (NULL);
+    }
     je = json_element_create_json_array(key, ja);
+    free(key);
     return (je);
 }
 
@@ -29,18 +34,24 @@ json_element_t *json_parser_to_element_object(char *key, char **str)
     json_element_t *je;
     json_object_t *jo;
 
-    if (!str || !*str)
+    if (!str || !*str) {
+        free(key);
         return (NULL);
+    }
     jo = jo_create_from_string(str);
-    if (!jo)
+    if (!jo) {
+        free(key);
         return (NULL);
+    }
     je = json_element_create_json_object(key, jo);
+    free(key);
     return (je);
 }
 
 json_element_t *json_parser_to_element(enum json_type type,
     char *key, char *value)
 {
+    json_element_t *je = NULL;
     char *tmp;
 
     if (type == j_null)
@@ -53,8 +64,9 @@ json_element_t *json_parser_to_element(enum json_type type,
         tmp = json_parser_get_string(&value);
         if (!tmp)
             return (NULL);
-        return (json_element_create_string(key, tmp));
+        je = json_element_create_string(key, tmp);
         free(tmp);
+        return (je);
     }
     return (NULL);
 }

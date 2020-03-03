@@ -3,6 +3,7 @@
 *.a
 /include/*/*.h
 *.log
+vgcore.*
 
 # tests
 /unit_tests

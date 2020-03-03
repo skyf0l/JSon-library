@@ -81,6 +81,14 @@ Test(json_object_create_from_string, invalid_json_7)
     cr_assert_null(jo);
 }
 
+Test(json_object_create_from_string, invalid_json_8)
+{
+    char *str = "{\"key\":0}k";
+    json_object_t *jo = json_object_create_from_string(str);
+
+    cr_assert_null(jo);
+}
+
 Test(jo_create_from_string, null)
 {
     char *str = NULL;
@@ -148,7 +156,7 @@ Test(jo_create_from_string, invalid_json_6)
 Test(jo_create_from_string, valid_json)
 {
     char *str = "{} a random thing";
-    char *str_expected = " a random thing";
+    char *str_expected = "a random thing";
     char *to_string;
     char *expected = "{}";
     json_object_t *jo = jo_create_from_string(&str);
@@ -305,6 +313,19 @@ Test(json_object_create_from_string, valid_recursif_object)
 
     to_string = json_object_to_string(jo);
     cr_assert_str_eq(to_string, str);
+    json_object_destroy(jo);
+    free(to_string);
+}
+
+Test(json_object_create_from_string, valid_recursif_object_1)
+{
+    char *str = "{\"\" :{}, \n\"0\":{ \"0\"\r:[[ []]]},\"kk\":[\nfalse\r]\r}\n";
+    char *to_string;
+    char *expected = "{\"\":{}, \"0\":{\"0\":[[[]]]}, \"kk\":[false]}";
+    json_object_t *jo = json_object_create_from_string(str);
+
+    to_string = json_object_to_string(jo);
+    cr_assert_str_eq(to_string, expected);
     json_object_destroy(jo);
     free(to_string);
 }

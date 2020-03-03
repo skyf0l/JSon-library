@@ -28,9 +28,11 @@ int ja_parse_string(json_array_t *ja, char **str)
             return (EXIT_FAILURE);
         list_add(ja->elements, je);
         ja->elements_count++;
+        json_parser_skip_white_spaces(str);
     }
     if (*(*str)++ != ']')
         return (EXIT_FAILURE);
+    json_parser_skip_white_spaces(str);
     return (EXIT_SUCCESS);
 }
 
@@ -58,6 +60,8 @@ json_array_t *json_array_create_from_string(char *str)
     if (!ja)
         return (NULL);
     if (ja_parse_string(ja, &str))
+        return (json_array_destroy(ja));
+    if (*str)
         return (json_array_destroy(ja));
     return (ja);
 }
