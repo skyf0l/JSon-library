@@ -32,7 +32,6 @@ int jo_parse_string(json_object_t *jo, char **str)
     }
     if (*(*str)++ != '}')
         return (EXIT_FAILURE);
-    json_parser_skip_white_spaces(str);
     return (EXIT_SUCCESS);
 }
 
@@ -47,6 +46,7 @@ json_object_t *jo_create_from_string(char **str)
         return (NULL);
     if (jo_parse_string(jo, str))
         return (json_object_destroy(jo));
+    json_parser_skip_white_spaces(str);
     return (jo);
 }
 
@@ -61,6 +61,7 @@ json_object_t *json_object_create_from_string(char *str)
         return (NULL);
     if (jo_parse_string(jo, &str))
         return (json_object_destroy(jo));
+    json_parser_skip_white_spaces(&str);
     if (*str)
         return (json_object_destroy(jo));
     return (jo);

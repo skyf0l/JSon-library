@@ -15,7 +15,8 @@ int jp_get_value_string_size(char *str)
 
     if (*str == '"')
         len = jp_get_string_size(&str[1]) + 2;
-    for (; str && str[len] && str[len] != ',' && str[len] != '}' && str[len] != ']'; len++);
+    while (str[len] && str[len] != ',' && str[len] != '}' && str[len] != ']')
+        len++;
     if (!str[len])
         return (-1);
     while (len > 0 && sp_is_white_space(str[len - 1]))

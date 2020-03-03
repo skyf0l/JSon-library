@@ -30,6 +30,21 @@ int jp_get_string_size(char *str)
     return (-1);
 }
 
+void jp_get_string_fill(char **str, char *string, int size)
+{
+    int i = 0;
+
+    for (int k = 0; k < size; k++) {
+        if (**str == '\\' && js_is_unescape_char(**str)) {
+            string[i++] = js_to_escape_char(*(++*str));
+            ++*str;
+            continue;
+        }
+        string[i++] = *(*str)++;
+    }
+    string[size] = '\0';
+}
+
 char *json_parser_get_string(char **str)
 {
     int size;
@@ -43,15 +58,7 @@ char *json_parser_get_string(char **str)
     string = malloc(sizeof(char) * (size + 1));
     if (!string)
         return (NULL);
-    for (int k = 0, i = 0; k < size; k++) {
-        if (**str == '\\' && js_is_unescape_char(**str)) {
-            string[i++] = js_to_escape_char(*(++*str));
-            ++*str;
-            continue;
-        }
-        string[i++] = *(*str)++;
-    }
-    string[size] = '\0';
+    jp_get_string_fill(str, string, size);
     ++*str;
     return (string);
 }

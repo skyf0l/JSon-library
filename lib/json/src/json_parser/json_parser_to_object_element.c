@@ -26,12 +26,27 @@ char *jp_to_object_element_get_key(char **str)
     return (key);
 }
 
+json_element_t *json_parser_to_object_element_2(json_element_t *je,
+    char *key, char *value_string)
+{
+    enum json_type type = json_parser_get_value_type(value_string);
+
+    if (type == j_unexist) {
+        free(key);
+        free(value_string);
+        return (NULL);
+    }
+    je = json_parser_to_element(type, key, value_string);
+    free(key);
+    free(value_string);
+    return (je);
+}
+
 json_element_t *json_parser_to_object_element(char **str)
 {
     char *key;
     char *value_string;
     json_element_t *je = NULL;
-    enum json_type type;
 
     if (!str || !*str || !**str)
         return (NULL);
@@ -47,14 +62,5 @@ json_element_t *json_parser_to_object_element(char **str)
         free(key);
         return (NULL);
     }
-    type = json_parser_get_value_type(value_string);
-    if (type == j_unexist) {
-        free(key);
-        free(value_string);
-        return (NULL);
-    }
-    je = json_parser_to_element(type, key, value_string);
-    free(key);
-    free(value_string);
-    return (je);
+    return (json_parser_to_object_element_2(je, key, value_string));
 }

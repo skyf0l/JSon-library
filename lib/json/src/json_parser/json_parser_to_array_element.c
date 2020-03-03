@@ -23,11 +23,10 @@ json_element_t *json_parser_to_array_element(char **str)
     if (**str == '{')
         return (json_parser_to_element_object(NULL, str));
     value_string = json_parser_get_value_string(str);
-    if (!value_string)
-        return (NULL);
     type = json_parser_get_value_type(value_string);
     if (type == j_unexist) {
-        free(value_string);
+        if (value_string)
+            free(value_string);
         return (NULL);
     }
     je = json_parser_to_element(type, NULL, value_string);

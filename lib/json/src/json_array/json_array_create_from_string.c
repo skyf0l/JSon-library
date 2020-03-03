@@ -32,7 +32,6 @@ int ja_parse_string(json_array_t *ja, char **str)
     }
     if (*(*str)++ != ']')
         return (EXIT_FAILURE);
-    json_parser_skip_white_spaces(str);
     return (EXIT_SUCCESS);
 }
 
@@ -47,6 +46,7 @@ json_array_t *ja_create_from_string(char **str)
         return (NULL);
     if (ja_parse_string(ja, str))
         return (json_array_destroy(ja));
+    json_parser_skip_white_spaces(str);
     return (ja);
 }
 
@@ -61,6 +61,7 @@ json_array_t *json_array_create_from_string(char *str)
         return (NULL);
     if (ja_parse_string(ja, &str))
         return (json_array_destroy(ja));
+    json_parser_skip_white_spaces(&str);
     if (*str)
         return (json_array_destroy(ja));
     return (ja);
