@@ -77,9 +77,11 @@ json_object_t *jo_create_from_string(char **str);
 int sp_is_white_space(char c);
 void json_parser_skip_white_spaces(char **str);
 char *json_parser_get_string(char **str);
+int jp_get_string_size(char *str);
 char *json_parser_get_value_string(char **str);
 int jp_get_value_string_size(char *str);
 enum json_type json_parser_get_value_type(char *type);
+json_element_t *json_parser_to_element(char **str);
 
 // j_str
 size_t j_strlen(char const *str);

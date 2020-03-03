@@ -505,7 +505,7 @@ Test(json_parser_get_value_type, j_string_0)
 
 Test(json_parser_get_value_type, j_string_1)
 {
-    char *string = "\"str string !!! \n\n\"";
+    char *string = "\"str string !!! \\n\\n\"";
     enum json_type type;
     enum json_type expected = j_string;
 
@@ -515,7 +515,7 @@ Test(json_parser_get_value_type, j_string_1)
 
 Test(json_parser_get_value_type, j_string__error_0)
 {
-    char *string = "\"str\"\"";
+    char *string = "\"str\n\"";
     enum json_type type;
     enum json_type expected = j_unexist;
 
@@ -525,7 +525,7 @@ Test(json_parser_get_value_type, j_string__error_0)
 
 Test(json_parser_get_value_type, j_string__error_1)
 {
-    char *string = "\"str\n\"";
+    char *string = "\"str string !!! \n\n\"";
     enum json_type type;
     enum json_type expected = j_unexist;
 
@@ -542,3 +542,11 @@ Test(json_parser_get_value_type, j_string__error_2)
     type = json_parser_get_value_type(string);
     cr_assert_eq(type, expected);
 }
+/*
+Test(json_parser_to_element, null)
+{
+    char *string = NULL;
+    json_element_t *je = json_parser_to_element(&string);
+
+    cr_assert_null(je);
+}*/

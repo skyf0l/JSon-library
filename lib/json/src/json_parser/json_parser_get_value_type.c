@@ -20,7 +20,7 @@ enum json_type json_parser_get_value_type(char *str)
         return (j_bool);
     if (j_str_isint(str))
         return (j_int);
-    if (jp_get_string_lenght(str) != -1)
+    if (str[0] == '"' && jp_get_string_size(&str[1]) != -1)
         return (j_string);
     return (j_unexist);
 }

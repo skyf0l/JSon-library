@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "private_json.h"
 
-int jp_get_string_lenght(char *str)
+int jp_get_string_size(char *str)
 {
     int len = 0;
 
@@ -37,7 +37,7 @@ char *json_parser_get_string(char **str)
 
     if (!str || !*str || *(*str)++ != '"')
         return (NULL);
-    size = jp_get_string_lenght(*str);
+    size = jp_get_string_size(*str);
     if (size == -1)
         return (NULL);
     string = malloc(sizeof(char) * (size + 1));
