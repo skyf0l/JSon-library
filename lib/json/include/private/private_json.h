@@ -74,6 +74,7 @@ char *get_string_to_json_format(char *str);
 
 // json_parser
 json_object_t *jo_create_from_string(char **str);
+int sp_is_white_space(char c);
 void json_parser_skip_white_spaces(char **str);
 char *json_parser_get_string(char **str);
 char *json_parser_get_value_string(char **str);
