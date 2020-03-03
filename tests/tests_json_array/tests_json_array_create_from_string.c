@@ -206,3 +206,27 @@ Test(json_array_create_from_string, valid_recursif_array_2)
     to_string = json_array_to_string(ja);
     cr_assert_str_eq(to_string, expected);
 }
+
+Test(json_array_create_from_string, valid_recursif_array_object_0)
+{
+    char *str = "[{}, {}, {}]";
+    char *expected = str;
+    char *to_string;
+    json_array_t *ja = json_array_create_from_string(str);
+
+    cr_assert_not_null(ja);
+    to_string = json_array_to_string(ja);
+    cr_assert_str_eq(to_string, expected);
+}
+
+Test(json_array_create_from_string, valid_recursif_array_object_1)
+{
+    char *str = "[{\"0\":[]}, {\"0\":[{\"0\":[]}]}, {\"0\":[]}]";
+    char *expected = str;
+    char *to_string;
+    json_array_t *ja = json_array_create_from_string(str);
+
+    cr_assert_not_null(ja);
+    to_string = json_array_to_string(ja);
+    cr_assert_str_eq(to_string, expected);
+}

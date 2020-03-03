@@ -296,3 +296,15 @@ Test(json_object_create_from_string, j_string_escape)
     json_object_destroy(jo);
     free(to_string);
 }
+
+Test(json_object_create_from_string, valid_recursif_object)
+{
+    char *str = "{\"\":{}, \"0\":{\"0\":[[[]]]}, \"kk\":[false]}";
+    char *to_string;
+    json_object_t *jo = json_object_create_from_string(str);
+
+    to_string = json_object_to_string(jo);
+    cr_assert_str_eq(to_string, str);
+    json_object_destroy(jo);
+    free(to_string);
+}
