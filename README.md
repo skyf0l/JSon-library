@@ -52,7 +52,7 @@ json_array_t *ja = json_array_create();     // create
 
 json_array_put_int(ja, 0);
 json_array_put_int(ja, 2);
-json_array_put_json_object_at(ja, 1, json_object_create());
+json_array_put_object_at(ja, 1, json_object_create());
 
 json_array_get_size(ja);                    // return 3
 
@@ -64,7 +64,7 @@ json_array_to_string(ja);                   // return [0, {"null_key":null}, 2]
 
 json_array_remove(ja, 2);
 
-json_array_put_json_array_at(ja, 1, json_array_clone(ja));
+json_array_put_json_at(ja, 1, json_array_clone(ja));
 
 json_array_to_string(ja);                   // return [0, [0, {"null_key":null}], {"null_key":null}]
 
