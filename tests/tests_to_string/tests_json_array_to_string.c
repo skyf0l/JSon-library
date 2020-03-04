@@ -64,9 +64,9 @@ Test(json_array_to_string, multi_2)
     char *str;
 
     json_array_put_null(ja);
-    json_array_put_json_object(ja, json_object_create());
+    json_array_put_object(ja, json_object_create());
     json_array_put_int_at(ja, 5, 1);
-    json_array_put_json_array_at(ja, json_array_clone(ja), 1);
+    json_array_put_array_at(ja, json_array_clone(ja), 1);
     str = json_array_to_string(ja);
     cr_assert_str_eq(str, expect);
     json_array_destroy(ja);

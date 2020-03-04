@@ -166,11 +166,11 @@ Test(json_element_create_string, j_string)
     json_element_destroy(je);
 }
 
-Test(json_element_create_json_array, j_array_null)
+Test(json_element_create_array, j_array_null)
 {
     char *key = "object";
     json_array_t *value = NULL;
-    json_element_t *je = json_element_create_json_array(key, value);
+    json_element_t *je = json_element_create_array(key, value);
 
     cr_assert_not_null(je);
     cr_assert_eq(je->type, j_null);
@@ -186,7 +186,7 @@ Test(json_element_create_array, j_array)
 {
     char *key = "string";
     json_array_t *value = json_array_create();
-    json_element_t *je = json_element_create_json_array(key, value);
+    json_element_t *je = json_element_create_array(key, value);
 
     cr_assert_not_null(je);
     cr_assert_eq(je->type, j_array);
@@ -198,11 +198,11 @@ Test(json_element_create_array, j_array)
     json_element_destroy(je);
 }
 
-Test(json_element_create_json_object, j_object_null)
+Test(json_element_create_object, j_object_null)
 {
     char *key = "object";
     json_object_t *value = NULL;
-    json_element_t *je = json_element_create_json_object(key, value);
+    json_element_t *je = json_element_create_object(key, value);
 
     cr_assert_not_null(je);
     cr_assert_eq(je->type, j_null);
@@ -218,7 +218,7 @@ Test(json_element_create_string, j_object)
 {
     char *key = "string";
     json_object_t *value = json_object_create();
-    json_element_t *je = json_element_create_json_object(key, value);
+    json_element_t *je = json_element_create_object(key, value);
 
     cr_assert_not_null(je);
     cr_assert_eq(je->type, j_object);

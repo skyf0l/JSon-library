@@ -24,7 +24,7 @@ json_element_t *json_parser_to_element_array(char *key, char **str)
         free(key);
         return (NULL);
     }
-    je = json_element_create_json_array(key, ja);
+    je = json_element_create_array(key, ja);
     free(key);
     return (je);
 }
@@ -43,7 +43,7 @@ json_element_t *json_parser_to_element_object(char *key, char **str)
         free(key);
         return (NULL);
     }
-    je = json_element_create_json_object(key, jo);
+    je = json_element_create_object(key, jo);
     free(key);
     return (je);
 }

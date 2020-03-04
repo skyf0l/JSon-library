@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** JSON_ARRAY_GET_JSON_ARRAY
+** JSON_ARRAY_GET_OBJECT
 ** File description:
-** Json_array_get_json_array function
+** Json_array_get_object function
 */
 
 #include <stddef.h>
@@ -10,11 +10,11 @@
 #include "private_json.h"
 #include "json.h"
 
-json_array_t *json_array_get_json_array(json_array_t *ja, int id)
+json_object_t *json_array_get_object(json_array_t *ja, int id)
 {
     json_element_t *je = json_array_get_element(ja, id);
 
     if (je)
-        return (je->json_array);
+        return (je->json_object);
     return (NULL);
 }

@@ -165,11 +165,11 @@ Test(json_array_put_string, j_string)
     json_array_destroy(ja);
 }
 
-Test(json_array_put_json_array, j_array)
+Test(json_array_put_array, j_array)
 {
     json_array_t *value = json_array_create();
     json_array_t *ja = json_array_create();
-    int rtn_value = json_array_put_json_array(ja, value);
+    int rtn_value = json_array_put_array(ja, value);
     json_element_t *je = (json_element_t *)ja->elements->list->data;
 
     cr_assert_eq(rtn_value, EXIT_SUCCESS);
@@ -184,11 +184,11 @@ Test(json_array_put_json_array, j_array)
     json_array_destroy(ja);
 }
 
-Test(json_array_put_json_object, j_object)
+Test(json_array_put_object, j_object)
 {
     json_object_t *value = json_object_create();
     json_array_t *ja = json_array_create();
-    int rtn_value = json_array_put_json_object(ja, value);
+    int rtn_value = json_array_put_object(ja, value);
     json_element_t *je = (json_element_t *)ja->elements->list->data;
 
     cr_assert_eq(rtn_value, EXIT_SUCCESS);

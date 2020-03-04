@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2020
-** JSON_ELEMENT_CREATE_JSON_OBJECT
+** JSON_ELEMENT_CREATE_ARRAY
 ** File description:
-** Json_element_create_json_object function
+** Json_element_create_array function
 */
 
 #include <stddef.h>
@@ -10,8 +10,7 @@
 #include "private_json.h"
 #include "json.h"
 
-json_element_t *json_element_create_json_object(char *key,
-    json_object_t *value)
+json_element_t *json_element_create_array(char *key, json_array_t *value)
 {
     json_element_t *je = json_element_create(key);
 
@@ -19,7 +18,7 @@ json_element_t *json_element_create_json_object(char *key,
         return (NULL);
     if (!value)
         return (je);
-    je->type = j_object;
-    je->json_object = value;
+    je->type = j_array;
+    je->json_array = value;
     return (je);
 }

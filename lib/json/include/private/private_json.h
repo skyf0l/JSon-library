@@ -54,8 +54,8 @@ json_element_t *json_object_get_element(json_object_t *jo, char *key);
 // json_element
 json_element_t *json_element_create(char *key);
 json_element_t *json_element_clone(json_element_t *je);
-json_element_t *json_element_create_json_array(char *key, json_array_t *value);
-json_element_t *json_element_create_json_object(char *key,
+json_element_t *json_element_create_array(char *key, json_array_t *value);
+json_element_t *json_element_create_object(char *key,
     json_object_t *value);
 json_element_t *json_element_create_bool(char *key, int value);
 json_element_t *json_element_create_int(char *key, int value);

@@ -214,7 +214,7 @@ Test(json_object_to_string, json_object_inside)
     char *expect = "{\"jo\":{}}";
     char *str;
 
-    json_object_put_json_object(jo, "jo", json_object_create());
+    json_object_put_object(jo, "jo", json_object_create());
     str = json_object_to_string(jo);
     cr_assert_str_eq(str, expect);
     json_object_destroy(jo);
@@ -228,9 +228,9 @@ Test(json_object_to_string, fill_json_object_inside_before)
     char *expect = "{\"jo1\":{\"jo\":{}, \"bool\":true}}";
     char *str;
 
-    json_object_put_json_object(jo1, "jo", json_object_create());
+    json_object_put_object(jo1, "jo", json_object_create());
     json_object_put_bool(jo1, "bool", 1);
-    json_object_put_json_object(jo, "jo1", jo1);
+    json_object_put_object(jo, "jo1", jo1);
     str = json_object_to_string(jo);
     cr_assert_str_eq(str, expect);
     json_object_destroy(jo);
@@ -244,8 +244,8 @@ Test(json_object_to_string, fill_json_object_inside_after)
     char *expect = "{\"jo1\":{\"jo\":{}, \"bool\":true}}";
     char *str;
 
-    json_object_put_json_object(jo, "jo1", jo1);
-    json_object_put_json_object(jo1, "jo", json_object_create());
+    json_object_put_object(jo, "jo1", jo1);
+    json_object_put_object(jo1, "jo", json_object_create());
     json_object_put_bool(jo1, "bool", 1);
     str = json_object_to_string(jo);
     cr_assert_str_eq(str, expect);
@@ -259,8 +259,8 @@ Test(json_object_to_string, json_object_array_inside)
     char *expect = "{\"jo\":{}, \"ja\":[]}";
     char *str;
 
-    json_object_put_json_object(jo, "jo", json_object_create());
-    json_object_put_json_array(jo, "ja", json_array_create());
+    json_object_put_object(jo, "jo", json_object_create());
+    json_object_put_array(jo, "ja", json_array_create());
     str = json_object_to_string(jo);
     cr_assert_str_eq(str, expect);
     json_object_destroy(jo);

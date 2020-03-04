@@ -105,7 +105,7 @@ Test(json_array_get_type, j_array)
     json_array_t *ja = json_array_create();
     enum json_type type;
 
-    json_array_put_json_array(ja, json_array_create());
+    json_array_put_array(ja, json_array_create());
     type = json_array_get_type(ja, 0);
     cr_assert_eq(type, j_array);
     json_array_destroy(ja);
@@ -116,7 +116,7 @@ Test(json_array_get_type, j_object)
     json_array_t *ja = json_array_create();
     enum json_type type;
 
-    json_array_put_json_object(ja, json_object_create());
+    json_array_put_object(ja, json_object_create());
     type = json_array_get_type(ja, 0);
     cr_assert_eq(type, j_object);
     json_array_destroy(ja);
