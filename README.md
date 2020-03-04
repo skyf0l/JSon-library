@@ -58,13 +58,13 @@ json_array_get_size(ja);                    // return 3
 
 json_array_to_string(ja);                   // return [0, {}, 2]
 
-json_object_put_null(json_array_get_json_object(ja, 1), "null_key");
+json_object_put_null(json_array_get_object(ja, 1), "null_key");
 
 json_array_to_string(ja);                   // return [0, {"null_key":null}, 2]
 
 json_array_remove(ja, 2);
 
-json_array_put_json_at(ja, 1, json_array_clone(ja));
+json_array_put_array_at(ja, 1, json_array_clone(ja));
 
 json_array_to_string(ja);                   // return [0, [0, {"null_key":null}], {"null_key":null}]
 
